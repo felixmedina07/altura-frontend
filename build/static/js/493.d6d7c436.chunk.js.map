@@ -1,0 +1,1 @@
+{"version":3,"file":"static/js/493.d6d7c436.chunk.js","mappings":"mJAUA,UARiB,WACb,OACI,yBAAK,YAIb,C","sources":["page/Error404.js"],"sourcesContent":["import React from 'react';\n\nconst Error404 = () => {\n    return (\n        <div>\n            Error404\n        </div>\n    )\n}\n\nexport default Error404;"],"names":[],"sourceRoot":""}

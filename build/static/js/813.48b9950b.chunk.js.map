@@ -1,0 +1,1 @@
+{"version":3,"file":"static/js/813.48b9950b.chunk.js","mappings":"mJAUA,UARkB,WACd,OACI,yBAAK,aAIb,C","sources":["page/Dashboard.js"],"sourcesContent":["import React from 'react';\n\nconst Dashboard = () => {\n    return (\n        <div>\n            Dashboard\n        </div>\n    )\n}\n\nexport default Dashboard;"],"names":[],"sourceRoot":""}
