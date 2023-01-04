@@ -2,8 +2,48 @@ import React, { useState } from "react";
 import { makeStyles } from "@mui/styles";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
+import styled from "styled-components";
+
+const TextMenuNav = styled("p")({
+  color: "#FFF",
+  textAlign: "center",
+  margin: "auto",
+  fontFamily: "Montserrat-Regular",
+  fontSize: 18,
+  fontWeight: 700,
+});
+
+const SubTextMenuNav = styled("p")({
+  color: "#FFFFFF",
+  textAlign: "left",
+  margin: 0,
+  fontFamily: "Montserrat-Italic",
+  fontSize: 14,
+  fontWeight: 400,
+  opacity:0.8,
+  width: 261,
+  height: 22,
+  paddingLeft: 15,
+  "&:hover": {
+    background:
+      "linear-gradient(90deg, rgba(26, 255, 222, 0.5) 0%, rgba(26, 255, 222, 0) 100%);",
+  },
+});
 
 export const NavItem = ({ name, subMenu }) => {
+  const itemSubMenu = [
+    { name: "Apes" },
+    { name: "Dudes" },
+    { name: "Chikens" },
+    { name: "Dudes" },
+    { name: "Elves" },
+    { name: "Happy Blob Squad" },
+    { name: "Killer Kitties" },
+    { name: "Owls" },
+    { name: "Queens" },
+    { name: "Vixens" },
+    { name: "Squeegee Gwakkas" },
+  ];
   const useStyles = makeStyles({
     itemMenu: {
       display: "flex",
@@ -15,9 +55,17 @@ export const NavItem = ({ name, subMenu }) => {
       height: 82.48,
       width: 262.05,
       backgroundImage: `url(${"./image/GroupMenuOff.png"})`,
-      "&:hover": {
-        backgroundImage: `url(${"./image/GroupMenuOn.png"})`,
-      },
+    },
+    itemMenuAct: {
+      display: "flex",
+      flexDirection: subMenu ? "column" : "row",
+      cursor: "pointer",
+      alignItems: "center",
+      alignSelf: "center",
+      justifyContent: "center",
+      height: 82.48,
+      width: 262.05,
+      backgroundImage: `url(${"./image/GroupMenuOn.png"})`,
     },
     subMenu: {
       display: "flex",
@@ -25,156 +73,73 @@ export const NavItem = ({ name, subMenu }) => {
       zIndex: 99,
       height: 307,
       width: 308,
-      flex:1,
+      flex: 1,
       backgroundImage: `url(${"./image/SubMenu.png"})`,
       marginTop: 60,
+    },
+    textMenu: {
+      color: "#FFF",
+      textAlign: "center",
+      margin: "auto",
+      fontFamily: "Montserrat-Regular.ttf",
+      fontSize: 18,
+      fontWeight: 700,
     },
   });
   const classes = useStyles();
   const [subMenuState, setSubMenuState] = useState(false);
-  console.log(subMenuState)
+  const [itemNavStatus, setItemNavStatus] = useState(false);
+  console.log(subMenuState);
   return (
     <>
       {!subMenu && (
         <Box
           component="div"
-          className={classes.itemMenu}
+          className={itemNavStatus ? classes.itemMenuAct : classes.itemMenu}
+          onMouseEnter={() => {
+            setItemNavStatus(true);
+          }}
+          onMouseLeave={() => {
+            setItemNavStatus(false);
+          }}
         >
-          {/* <Box
-           component="img"
-           className={classes.imageItemMenu}
-           alt="The house from the offer."
-           src="./image/GroupMenuOn.png"
-         /> */}
-          <Typography
-            variant="body1"
-            component="p"
-            color="white"
-            align="center"
-            margin="auto"
-          >
-            {name}
-          </Typography>
+          <TextMenuNav>{name}</TextMenuNav>
         </Box>
       )}
       {subMenu && (
-        <div style={{ display: "flex", flexDirection: "column", marginTop:5 } } onMouseEnter={() => { setSubMenuState(true)}}
-        onMouseLeave={() => { setSubMenuState(false)}}>
+        <div
+          style={{ display: "flex", flexDirection: "column", marginTop: 5 }}
+          onMouseEnter={() => {
+            setSubMenuState(true);
+            setItemNavStatus(true);
+          }}
+          onMouseLeave={() => {
+            setSubMenuState(false);
+            setItemNavStatus(false);
+          }}
+        >
           <Box
             component="div"
-            className={classes.itemMenu}
+            className={itemNavStatus ? classes.itemMenuAct : classes.itemMenu}
           >
-            {/* <Box
-              component="img"
-              className={classes.imageItemMenu}
-              alt="The house from the offer."
-              src="./image/GroupMenuOn.png"
-            /> */}
-            <Typography
-              variant="body1"
-              component="p"
-              color="white"
-              align="center"
-              margin="auto"
-            >
-              {name}
-            </Typography>
+            <TextMenuNav>{name}</TextMenuNav>
           </Box>
-         {
-            subMenuState && (
-                <Box component="div" className={classes.subMenu} onClick={() => {}}>
-                <div
-                  style={{
-                    display: "flex",
-                    flexDirection: "column",
-                    marginLeft: 45,
-                    marginTop: 30,
-                  }}
-                >
-                  <Typography
-                    variant="body1"
-                    component="p"
-                    color="white"
-                    align="left"
-                  >
-                    Apes
-                  </Typography>
-                  <Typography
-                    variant="body1"
-                    component="p"
-                    color="white"
-                    align="left"
-                  >
-                    Dudes
-                  </Typography>
-                  <Typography
-                    variant="body1"
-                    component="p"
-                    color="white"
-                    align="left"
-                  >
-                    Chickens
-                  </Typography>
-                  <Typography
-                    variant="body1"
-                    component="p"
-                    color="white"
-                    align="left"
-                  >
-                    Elves
-                  </Typography>
-                  <Typography
-                    variant="body1"
-                    component="p"
-                    color="white"
-                    align="left"
-                  >
-                    Happy Blob Squad
-                  </Typography>
-                  <Typography
-                    variant="body1"
-                    component="p"
-                    color="white"
-                    align="left"
-                  >
-                    Killer Kitties
-                  </Typography>
-                  <Typography
-                    variant="body1"
-                    component="p"
-                    color="white"
-                    align="left"
-                  >
-                    Owls
-                  </Typography>
-                  <Typography
-                    variant="body1"
-                    component="p"
-                    color="white"
-                    align="left"
-                  >
-                    Queens
-                  </Typography>
-                  <Typography
-                    variant="body1"
-                    component="p"
-                    color="white"
-                    align="left"
-                  >
-                    Vixens
-                  </Typography>
-                  <Typography
-                    variant="body1"
-                    component="p"
-                    color="white"
-                    align="left"
-                  >
-                    Squeegee Gwakkas
-                  </Typography>
-                </div>
-              </Box>
-            )
-         }
+          {subMenuState && (
+            <Box component="div" className={classes.subMenu} onClick={() => {}}>
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  marginLeft: 35,
+                  marginTop: 35,
+                }}
+              >
+                {itemSubMenu.map((item) => (
+                  <SubTextMenuNav key={item.name}>{item.name}</SubTextMenuNav>
+                ))}
+              </div>
+            </Box>
+          )}
         </div>
       )}
     </>

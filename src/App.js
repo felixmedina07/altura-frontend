@@ -3,8 +3,10 @@ import "./App.css";
 import { Altura } from "@altura/altura-js";
 import MainRoutes from "./routes/mainRoutes";
 import { MainContext } from "./context/mainContext";
-import {styles} from './styles';
-import { makeStyles } from "@mui/styles";
+import { styles } from "./styles";
+import { makeStyles, ThemeProvider } from "@mui/styles";
+import { CssBaseline } from "@mui/material";
+import { DefaultTheme } from "./style/theme";
 const useStyles = makeStyles(styles);
 
 function App() {
@@ -23,10 +25,10 @@ function App() {
   };
   return (
     <MainContext.Provider>
-     <div className={classes.root}>
-     <MainRoutes />
-     </div>
-    </MainContext.Provider>
+        <div className={classes.root}>
+          <MainRoutes />
+        </div>
+      </MainContext.Provider>
   );
 }
 

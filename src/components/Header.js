@@ -1,8 +1,7 @@
 import React, { useState } from "react";
-import { styles } from "../style/header";
 import { makeStyles } from "@mui/styles";
 import Box from "@mui/material/Box";
-import Button from '@mui/material/Button';
+import Button from "@mui/material/Button";
 import { NavItem } from "./NavItem";
 const useStyles = makeStyles({
   contain: {
@@ -18,13 +17,13 @@ const useStyles = makeStyles({
     height: 82.92,
     width: 223.35,
   },
-  imageItemMenu:{
-    width:'auto',
-    height:'auto'
+  imageItemMenu: {
+    width: "auto",
+    height: "auto",
   },
 });
 export const Header = () => {
-    const [menuState,setMenuState] = useState(false);
+  const [menuState, setMenuState] = useState(false);
   const classes = useStyles();
   return (
     <div className={classes.contain}>
@@ -32,13 +31,27 @@ export const Header = () => {
         component="img"
         className={classes.imageHeader}
         alt="The house from the offer."
-        src= "./image/logoDefender.png"
+        src="./image/logoDefender.png"
       />
-     <NavItem name="Home" />
-     <NavItem name="Collection" subMenu={true}/>
-     <NavItem name="Marketplace" />
-     <NavItem name="Learn More" />
-     <Button style={{background:`url(${"./image/buttonLogin.png"})`,width:186,height:91,borderRadius:50,color:'white'}}>Login</Button>
+      <NavItem name="Home" />
+      <NavItem name="Collection" subMenu={true} />
+      <NavItem name="Marketplace" />
+      <NavItem name="Learn More" />
+      <Button
+      style={{
+        background: `url(${"./image/buttonLogin.png"})`,
+        width: 186,
+        height: 91,
+        borderRadius: 50,
+        color: "white",
+        fontFamily: "Montserrat-Regular",
+        fontSize: 18,
+        fontWeight: 700,
+        textTransform: 'none'
+      }}
+      >
+        Login
+      </Button>
     </div>
   );
 };
