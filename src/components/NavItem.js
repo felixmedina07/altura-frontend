@@ -53,7 +53,7 @@ export const NavItem = ({ name, subMenu }) => {
       alignSelf: "center",
       justifyContent: "center",
       height: 82.48,
-      width: 262.05,
+      width: 250,
       backgroundImage: `url(${"./image/GroupMenuOff.png"})`,
     },
     itemMenuAct: {
@@ -64,7 +64,7 @@ export const NavItem = ({ name, subMenu }) => {
       alignSelf: "center",
       justifyContent: "center",
       height: 82.48,
-      width: 262.05,
+      width: 250,
       backgroundImage: `url(${"./image/GroupMenuOn.png"})`,
     },
     subMenu: {

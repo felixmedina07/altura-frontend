@@ -1,9 +1,6 @@
 import React, { useState } from "react";
-import { styles } from "../style/header";
 import { makeStyles } from "@mui/styles";
 import Box from "@mui/material/Box";
-import Button from "@mui/material/Button";
-import { NavItem } from "./NavItem";
 const useStyles = makeStyles({
   contain: {
     position: "absolute",

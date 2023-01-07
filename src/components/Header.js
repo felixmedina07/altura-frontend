@@ -33,10 +33,10 @@ export const Header = () => {
         alt="The house from the offer."
         src="./image/logoDefender.png"
       />
-      <NavItem name="Home" />
-      <NavItem name="Collection" subMenu={true} />
-      <NavItem name="Marketplace" />
-      <NavItem name="Learn More" />
+      <NavItem name="Home" key={1} />
+      <NavItem name="Collection" subMenu={true} key={2} />
+      <NavItem name="Marketplace" key={3} />
+      <NavItem name="Learn More" key={4} />
       <Button
       style={{
         background: `url(${"./image/buttonLogin.png"})`,
