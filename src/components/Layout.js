@@ -1,11 +1,10 @@
 import React from "react";
 import { Footer } from "./Footer";
 import { Header } from "./Header";
-import Typography from "@mui/material/Typography";
-export const Layout = ({ children }) => {
+export const Layout = ({ children, notFooter }) => {
   return (
-    <>
-      <Header /> {children} <Footer />
-    </>
+    <div style={{width:'auto',height:'100%'}}>
+      <Header /> {children} {!notFooter && (<Footer />)}
+    </div>
   );
 };

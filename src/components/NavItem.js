@@ -8,25 +8,28 @@ const TextMenuNav = styled("p")({
   color: "#FFF",
   textAlign: "center",
   margin: "auto",
-  fontFamily: "Montserrat-Regular",
-  fontSize: 18,
-  fontWeight: 700,
+  fontFamily: "Genesis",
+  fontSize: 14,
+  fontWeight: 400,
+  marginTop:16
 });
 
 const SubTextMenuNav = styled("p")({
   color: "#FFFFFF",
   textAlign: "left",
   margin: 0,
-  fontFamily: "Montserrat-Italic",
+  fontFamily: "Genesis",
   fontSize: 14,
   fontWeight: 400,
   opacity:0.8,
-  width: 261,
-  height: 22,
-  paddingLeft: 15,
+  width: 200,
+  height: 14,
+  paddingLeft: 5,
+  paddingTop:2,
   "&:hover": {
     background:
       "linear-gradient(90deg, rgba(26, 255, 222, 0.5) 0%, rgba(26, 255, 222, 0) 100%);",
+      paddingBottom:2,
   },
 });
 
@@ -52,9 +55,10 @@ export const NavItem = ({ name, subMenu }) => {
       alignItems: "center",
       alignSelf: "center",
       justifyContent: "center",
-      height: 82.48,
-      width: 250,
-      backgroundImage: `url(${"./image/GroupMenuOff.png"})`,
+      backgroundRepeat:'no-repeat',
+      height: 60.3,
+      width: 161.4,
+      backgroundImage: `url(${"./image/btnoff.png"})`,
     },
     itemMenuAct: {
       display: "flex",
@@ -63,19 +67,20 @@ export const NavItem = ({ name, subMenu }) => {
       alignItems: "center",
       alignSelf: "center",
       justifyContent: "center",
-      height: 82.48,
-      width: 250,
-      backgroundImage: `url(${"./image/GroupMenuOn.png"})`,
+      backgroundRepeat:'no-repeat',
+      height: 55.3,
+      width: 161.4,
+      backgroundImage: `url(${"./image/btnon.png"})`,
     },
     subMenu: {
       display: "flex",
       position: "absolute",
       zIndex: 99,
-      height: 307,
-      width: 308,
+      height: 229,
+      width: 223,
       flex: 1,
-      backgroundImage: `url(${"./image/SubMenu.png"})`,
-      marginTop: 60,
+      backgroundImage: `url(${"./image/SubMenuTwo.png"})`,
+      marginTop: 40,
     },
     textMenu: {
       color: "#FFF",
@@ -85,13 +90,16 @@ export const NavItem = ({ name, subMenu }) => {
       fontSize: 18,
       fontWeight: 700,
     },
+    containNav:{
+    marginTop:7
+    }
   });
   const classes = useStyles();
   const [subMenuState, setSubMenuState] = useState(false);
   const [itemNavStatus, setItemNavStatus] = useState(false);
   console.log(subMenuState);
   return (
-    <>
+    <div className={classes.containNav}>
       {!subMenu && (
         <Box
           component="div"
@@ -108,7 +116,7 @@ export const NavItem = ({ name, subMenu }) => {
       )}
       {subMenu && (
         <div
-          style={{ display: "flex", flexDirection: "column", marginTop: 5 }}
+          style={{ display: "flex", flexDirection: "column" }}
           onMouseEnter={() => {
             setSubMenuState(true);
             setItemNavStatus(true);
@@ -131,7 +139,7 @@ export const NavItem = ({ name, subMenu }) => {
                   display: "flex",
                   flexDirection: "column",
                   marginLeft: 35,
-                  marginTop: 35,
+                  marginTop: 25,
                 }}
               >
                 {itemSubMenu.map((item) => (
@@ -142,6 +150,6 @@ export const NavItem = ({ name, subMenu }) => {
           )}
         </div>
       )}
-    </>
+    </div>
   );
 };

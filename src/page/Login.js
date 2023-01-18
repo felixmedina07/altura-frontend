@@ -1,8 +1,17 @@
 import React from "react";
 import { Altura } from "@altura/altura-js";
-import { Header } from "../components/Header";
-import { Footer } from "../components/Footer";
 import { Layout } from "../components/Layout";
+import PrincipalScreen from "../components/PrincipalScreen";
+import SecundaryScreen from "../components/SecundaryScreen";
+import TertiaryScreen from "../components/TertiaryScreen";
+import styled from "styled-components";
+import QuartenaryScreen from "../components/QuarternaryScreen";
+const Divider = styled("div")({
+  width: "100%",
+  height: 8,
+  background:
+    "linear-gradient(90deg, rgba(159, 74, 255, 0.1) 0%, rgba(169, 157, 255, 0.4) 50%, rgba(159, 74, 255, 0.1) 100%);",
+});
 const Login = () => {
   const handleClickNew = async () => {
     const newVar = new Altura("D6RSE4R-9T6MJ8H-K1HN3PQ-5ZHRFYT");
@@ -20,9 +29,12 @@ const Login = () => {
     <>
       <div onClick={() => handleClickNew()}></div>
       <Layout>
-        {/* <div style={{color:'white'}}>
-        </div> */}
-        </Layout>
+        <PrincipalScreen />
+        <SecundaryScreen />
+        <Divider />
+        <TertiaryScreen />
+        <QuartenaryScreen />
+      </Layout>
     </>
   );
 };
