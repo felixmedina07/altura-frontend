@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, redirect } from "react-router-dom";
 import { makeStyles } from "@mui/styles";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
@@ -57,7 +57,7 @@ const SubTextMenuNav = styled("p")({
   },
 });
 export const Header = () => {
-  const navigation = useNavigate();
+  const navigate = useNavigate();
   const itemSubMenu = [
     { name: "My Vanity", route: "vanity" },
     { name: "Deck Builder" },
@@ -65,7 +65,12 @@ export const Header = () => {
     { name: "Exit" },
   ];
   const handleLoginPage = (route) => {
-    navigation(route);
+    if (route === 'vanity') {
+      navigate('/vanity');
+    }
+    if (route === 'launch-forces') {
+      navigate('/launch-forces');
+    }
   };
   const [loginState, setLoginState] = useState(false);
   const [subMenuState, setSubMenuState] = useState(false);
