@@ -79,7 +79,7 @@ export const Header = () => {
     <div className={classes.contain}>
       <Box
       style={{cursor:'pointer'}}
-        onClick={() => navigation("/")}
+        onClick={() => navigate("/")}
         component="img"
         alt="The house from the offer."
         src="./image/LOGO_1_.svg"
