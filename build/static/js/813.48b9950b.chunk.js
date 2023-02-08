@@ -1,2 +1,0 @@
-"use strict";(self.webpackChunkaltura_frontend=self.webpackChunkaltura_frontend||[]).push([[813],{8813:function(n,r,a){a.r(r);a(2791);var e=a(184);r.default=function(){return(0,e.jsx)("div",{children:"Dashboard"})}}}]);
-//# sourceMappingURL=813.48b9950b.chunk.js.map
