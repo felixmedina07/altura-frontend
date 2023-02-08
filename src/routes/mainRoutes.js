@@ -5,6 +5,7 @@ const Login = lazy(() => import("../page/Login"));
 const Error404 = lazy(() => import("../page/Error404"));
 const Dashboard = lazy(() => import("../page/Dashboard"));
 const LaunchForces = lazy(() => import("../page/LaunchForces"));
+const Vanity = lazy(() => import("../page/Vanity"));
 
 const MainRoutes = () => {
   return (
@@ -14,6 +15,7 @@ const MainRoutes = () => {
         <Route path="/" element={<Login />} />
         <Route path="dashboard" element={<Dashboard />} />
         <Route path="launch-forces" element={<LaunchForces />} />
+        <Route path="vanity" element={<Vanity />} />
         <Route path="*" element={<Error404 />} />
       </Routes>
     </Suspense>

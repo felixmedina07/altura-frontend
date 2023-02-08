@@ -12,6 +12,14 @@ body::-webkit-scrollbar{
 .swiper-slide-shadow {
   background: transparent !important;
 }
+.testSlide .swiper-slide{
+  width: auto !important;
+  height: auto !important;
+}
+.testSlide .swiper-wrapper{
+  width: auto !important;
+  height: auto !important;
+}
 @font-face {
   font-family: "Montserrat-Bold";
   src: local("Montserrat-Bold"), url("./assets/font/Montserrat-Bold.ttf");

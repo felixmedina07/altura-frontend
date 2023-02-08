@@ -59,7 +59,7 @@ const SubTextMenuNav = styled("p")({
 export const Header = () => {
   const navigation = useNavigate();
   const itemSubMenu = [
-    { name: "My Vanity" },
+    { name: "My Vanity", route: "vanity" },
     { name: "Deck Builder" },
     { name: "Launch Forces", route: "launch-forces" },
     { name: "Exit" },
