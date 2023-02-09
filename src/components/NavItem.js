@@ -3,7 +3,7 @@ import { makeStyles } from "@mui/styles";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import styled from "styled-components";
-
+import { useNavigate } from "react-router-dom";
 const TextMenuNav = styled("p")({
   color: "#FFF",
   textAlign: "center",
@@ -33,7 +33,8 @@ const SubTextMenuNav = styled("p")({
   },
 });
 
-export const NavItem = ({ name, subMenu }) => {
+export const NavItem = ({ name, subMenu, route }) => {
+  const navigate = useNavigate();
   const itemSubMenu = [
     { name: "Apes" },
     { name: "Dudes" },
@@ -97,13 +98,24 @@ export const NavItem = ({ name, subMenu }) => {
   const classes = useStyles();
   const [subMenuState, setSubMenuState] = useState(false);
   const [itemNavStatus, setItemNavStatus] = useState(false);
-  console.log(subMenuState);
+  const handleNavigate = (name,route) => {
+    if(route){
+      if(name === "Home"){
+        navigate("/");
+      }
+      if(name === "Marketplace"){
+        navigate("/marketplace");
+      }
+    }
+    return;
+  }
   return (
     <div className={classes.containNav}>
       {!subMenu && (
         <Box
           component="div"
           className={itemNavStatus ? classes.itemMenuAct : classes.itemMenu}
+          onClick={() => handleNavigate(name, route) }
           onMouseEnter={() => {
             setItemNavStatus(true);
           }}

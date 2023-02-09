@@ -1,10 +1,12 @@
-import React, { useState } from "react";
-import { useNavigate, redirect } from "react-router-dom";
+import React, { useState, forwardRef, ReactElement, Ref } from "react";
+import { useNavigate } from "react-router-dom";
 import { makeStyles } from "@mui/styles";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
-import { NavItem } from "./NavItem";
 import styled from "styled-components";
+import { NavItem } from "./NavItem";
+import { LoginDialog } from "./LoginDialog";
+import { RegisterDialog } from "./RegisterDialog";
 const useStyles = makeStyles({
   contain: {
     background:
@@ -14,6 +16,7 @@ const useStyles = makeStyles({
     width: "100%",
     flexDirection: "row",
     justifyContent: "space-around",
+    zIndex: 1000,
   },
   imageHeader: {
     height: 82.92,
@@ -37,6 +40,7 @@ const useStyles = makeStyles({
     marginTop: 60,
   },
 });
+
 const SubTextMenuNav = styled("p")({
   color: "#FFFFFF",
   textAlign: "right",
@@ -56,37 +60,53 @@ const SubTextMenuNav = styled("p")({
       "linear-gradient(270deg, rgba(26, 255, 222, 0.5) -0.05%, rgba(26, 255, 222, 0) 99.98%);",
   },
 });
+
+
 export const Header = () => {
+  const [openModal, setOpenModal] = useState(false);
+  const [openModalRegister, setOpenModalRegister] = useState(false);
+  const [loginState, setLoginState] = useState(false);
+  const [subMenuState, setSubMenuState] = useState(false);
   const navigate = useNavigate();
   const itemSubMenu = [
     { name: "My Vanity", route: "vanity" },
     { name: "Deck Builder" },
     { name: "Launch Forces", route: "launch-forces" },
-    { name: "Exit" },
+    { name: "Exit", route: "Exit" },
   ];
   const handleLoginPage = (route) => {
-    if (route === 'vanity') {
-      navigate('/vanity');
+    if (route === "vanity") {
+      navigate("/vanity");
     }
-    if (route === 'launch-forces') {
-      navigate('/launch-forces');
+    if (route === "launch-forces") {
+      navigate("/launch-forces");
+    }
+    if(route === "Exit"){
+      setLoginState(false);
     }
   };
-  const [loginState, setLoginState] = useState(false);
-  const [subMenuState, setSubMenuState] = useState(false);
+
+  const handleClose = () => {
+    setOpenModal(false);
+  }
+
+  const handleCloseRegister = () => {
+    setOpenModalRegister(false);
+  }
+console.log(loginState, 'l');
   const classes = useStyles();
   return (
     <div className={classes.contain}>
+      <LoginDialog loginState={loginState} setLoginState={setLoginState} open={openModal} setOpen={setOpenModal} setOpenRegister={setOpenModalRegister} handleClose={handleClose} />
+      <RegisterDialog open={openModalRegister} setOpen={setOpenModalRegister} setOpenLogin={setOpenModal} handleCloseRegister={handleCloseRegister} />
       <Box
-      style={{cursor:'pointer'}}
-        onClick={() => navigate("/")}
         component="img"
         alt="The house from the offer."
         src="./image/LOGO_1_.svg"
       />
-      <NavItem name="Home" key={1} />
+      <NavItem name="Home" key={1} route={true} />
       <NavItem name="Collections" subMenu={true} key={2} />
-      <NavItem name="Marketplace" key={3} />
+      <NavItem name="Marketplace" route={true} key={3} />
       <NavItem name="Learn More" key={4} />
       <div
         onMouseEnter={() => {
@@ -112,12 +132,12 @@ export const Header = () => {
             fontWeight: 400,
             textTransform: "none",
           }}
-          onClick={() => setLoginState(loginState ? false : true)}
+          onClick={() => !loginState ? setOpenModal(true) : null}
         >
           {loginState ? "My account" : "login"}
         </Button>
         {loginState && subMenuState && (
-          <Box component="div" className={classes.subMenu} onClick={() => {}}>
+          <Box component="div" className={classes.subMenu} onClick={() => { }}>
             <div
               style={{
                 display: "flex",
