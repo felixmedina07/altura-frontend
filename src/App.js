@@ -24,11 +24,11 @@ function App() {
   //   }
   // };
   return (
-    <MainContext.Provider>
-        <div className={classes.root}>
-          <MainRoutes />
-        </div>
-      </MainContext.Provider>
+    <MainContext.Provider value={{ setUserData: null, userData: null }}>
+      <div className={classes.root}>
+        <MainRoutes />
+      </div>
+    </MainContext.Provider>
   );
 }
 
