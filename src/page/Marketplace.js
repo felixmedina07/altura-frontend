@@ -119,14 +119,14 @@ const Marketplace = () => {
 
     const collection = dummyCards.filter((item) => {
       return filters.some((itemFilter) => {
-        if (itemFilter.type !== "collection") return false;
+        if (itemFilter.type !== "collection") return;
         return itemFilter.text.toUpperCase() === item.collection.toUpperCase();
       });
     });
 
     const especialCards = dummyCards.filter((item) => {
       return filters.some((itemFilter) => {
-        if (itemFilter.type !== "especial") return false;
+        if (itemFilter.type !== "especial") return;
         return itemFilter.text.toUpperCase() === item.special.toUpperCase();
       });
     });
