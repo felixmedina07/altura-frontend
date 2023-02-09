@@ -50,7 +50,7 @@ const ColumnTwo = styled("div")`
   position: relative;
   @media (max-width: 1024px) {
     width: 735px;
-    height: 46px;
+    height: 47px;
     margin-right: 15px;
   }
   @media (min-width: 1440px) {
