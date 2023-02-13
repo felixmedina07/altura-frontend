@@ -70,7 +70,7 @@ export const Header = () => {
   const navigate = useNavigate();
   const itemSubMenu = [
     { name: "My Vanity", route: "vanity" },
-    { name: "Deck Builder" },
+    { name: "Deck Builder", route: "deck-builder" },
     { name: "Launch Forces", route: "launch-forces" },
     { name: "Exit", route: "Exit" },
   ];
@@ -80,6 +80,9 @@ export const Header = () => {
     }
     if (route === "launch-forces") {
       navigate("/launch-forces");
+    }
+    if (route === "deck-builder") {
+      navigate("/deck-builder");
     }
     if(route === "Exit"){
       setLoginState(false);

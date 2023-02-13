@@ -2,7 +2,9 @@ import React from "react";
 import Box from "@mui/material/Box";
 import { makeStyles } from "@mui/styles";
 import useMediaQuery from '@mui/material/useMediaQuery';
-import Button from "@mui/material/Button";
+import buttomPlay from '../assets/buttomPlay.svg';
+import IconButton from "@mui/material/IconButton";
+import {Typography} from "@mui/material";
 const useStyles = makeStyles({
   screenBackground: {
     backgroundImage: `url(${"./image/Rectangle.png"})`,
@@ -48,26 +50,21 @@ const PrincipalScreen = ({}) => {
             style={{ width: 512, height: 512 }}
             src="./image/girlFace.png"
           />
-          <Button
-            style={{
-              background: `url(${"./image/buttomPlay.png"})`,
-              width: 246.24,
-              height: 108.24,
-              position:'relative',
-              bottom:'21%',
-              borderRadius: 50,
-              color: "white",
+          <IconButton style={{ position: 'relative', bottom:'15%' }}>
+            <Box component="img" src={buttomPlay} style={{position: 'absolute', zIndex: 1000}} />
+            <Typography component="p" style={{  color: "#FFFF",
               fontFamily: "Genesis",
-              fontSize: 29,
-              marginBottom:-15,
-              marginTop:-5,
+              fontSize: 20,
               fontWeight: 400,
               textAlign:'center',
-              textTransform: "none",
-            }}
-          >
-            play now
-          </Button>
+              background: 'transparent',
+              width: 145,
+              margin: 0,
+              zIndex: 2000
+              }}>
+              Play Now For Free
+            </Typography>
+          </IconButton>
         </div>
       </div>
     </Box>
