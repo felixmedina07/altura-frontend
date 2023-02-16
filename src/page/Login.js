@@ -8,6 +8,7 @@ import styled from "styled-components";
 import QuartenaryScreen from "../components/QuarternaryScreen";
 const Divider = styled("div")({
   width: "100%",
+  background: "#090013",
   height: 8,
   background:
     "linear-gradient(90deg, rgba(159, 74, 255, 0.1) 0%, rgba(169, 157, 255, 0.4) 50%, rgba(159, 74, 255, 0.1) 100%);",
@@ -26,8 +27,7 @@ const Login = () => {
   //   }
   // };
   return (
-    <>
-      <div></div>
+    <div style={{width: '100%', height: '100%',background: '#090013' }}>
       <Layout>
         <PrincipalScreen />
         <SecundaryScreen />
@@ -35,7 +35,7 @@ const Login = () => {
         <TertiaryScreen />
         <QuartenaryScreen />
       </Layout>
-    </>
+    </div>
   );
 };
 

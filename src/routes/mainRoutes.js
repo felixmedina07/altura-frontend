@@ -9,6 +9,7 @@ const Vanity = lazy(() => import("../page/Vanity"));
 const Marketplace = lazy(() => import("../page/Marketplace"));
 const DeckBuilder = lazy(() => import("../page/DeckBuilder"));
 const VerifyCode = lazy(() => import("../page/verifyCode"));
+const LearnMore = lazy(() => import("../page/LearnMore"));
 
 const MainRoutes = () => {
   return (
@@ -23,6 +24,7 @@ const MainRoutes = () => {
           <Route path="*" element={<Error404 />} />
           <Route path="deck-builder" element={<DeckBuilder />} />
           <Route path="verifyCode" element={<VerifyCode />} />
+          <Route path="learn-more" element={<LearnMore />} />
         </Routes>
       </Suspense>
     </BrowserRouter>

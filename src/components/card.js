@@ -2,7 +2,7 @@ import Box from "@mui/material/Box";
 import styled from "styled-components";
 
 const Container = styled(Box)({
-  backgroundColor: "#000",
+  backgroundColor: "transparent",
   margin: "2px",
   padding: "7px",
   display: "grid",
@@ -10,11 +10,10 @@ const Container = styled(Box)({
 });
 
 const Background = styled(Box)({
-  background: `linear-gradient(to bottom,
-    rgba(169, 157, 255, 0.4) 0%,
-        rgba(159, 74, 255, 0) 50%,
-        rgba(169, 157, 255, 0.4) 100%)`,
-  padding: "2px",
+  border: '3px solid #1affde',
+  background: 'rgba(0, 0, 0, 0.4)',  
+  boxShadow: '0 0 0.1vw 0.1vw #1affde, 0 0 0.1vw 0.1vw #1affde, 0 0 1vw 0.1vw #1affde',  
+  padding: "3px",
   margin: "2px",
 });
 
@@ -39,10 +38,8 @@ const ItemContainer = styled(Box)(
     place-items: "center";
     width: 100%;
     transition: 1s;
-    background-image: linear-gradient(to bottom,
-          rgba(159, 255, 255, 0.5) 0%,
-          rgba(255, 255, 255, 0.3) 50%,
-          rgba(160, 255, 255, 0.5) 100%);
+    border: 1px solid #fff;
+    box-shadow: 0 0 0.1vw 0.1vw #fff, 0 0 0.1vw 0.1vw #fff, 0 0 1vw 0.1vw #fff;
     &:hover{
         width:102%
     }
