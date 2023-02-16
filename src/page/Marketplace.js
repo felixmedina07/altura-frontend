@@ -15,7 +15,7 @@ const Contain = styled(Box)({
   width: "100%",
   height: "100%",
   backgroundRepeat: "no-repeat",
-  backgroundSize: "contain",
+  backgroundSize: "cover",
   zIndex: -1,
   display: "flex",
   flexDirection: "column",
