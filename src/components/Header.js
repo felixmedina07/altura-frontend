@@ -1,4 +1,4 @@
-import React, { useState, forwardRef, ReactElement, Ref } from "react";
+import React, { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { makeStyles } from "@mui/styles";
 import Box from "@mui/material/Box";
@@ -7,6 +7,7 @@ import styled from "styled-components";
 import { NavItem } from "./NavItem";
 import { LoginDialog } from "./LoginDialog";
 import { RegisterDialog } from "./RegisterDialog";
+import { UserContext } from "../context/mainContext";
 const useStyles = makeStyles({
   contain: {
     background:
@@ -61,8 +62,8 @@ const SubTextMenuNav = styled("p")({
   },
 });
 
-
 export const Header = () => {
+  const { isLogged, setIsLogged, setToken, setUser } = useContext(UserContext);
   const [openModal, setOpenModal] = useState(false);
   const [openModalRegister, setOpenModalRegister] = useState(false);
   const [loginState, setLoginState] = useState(false);
@@ -84,24 +85,42 @@ export const Header = () => {
     if (route === "deck-builder") {
       navigate("/deck-builder");
     }
-    if(route === "Exit"){
-      setLoginState(false);
+    if (route === "Exit") {
+      setIsLogged(false);
+      setUser(null);
+      setToken(null);
     }
   };
 
   const handleClose = () => {
     setOpenModal(false);
-  }
+  };
 
   const handleCloseRegister = () => {
     setOpenModalRegister(false);
-  }
-console.log(loginState, 'l');
+  };
   const classes = useStyles();
   return (
     <div className={classes.contain}>
-      <LoginDialog loginState={loginState} setLoginState={setLoginState} open={openModal} setOpen={setOpenModal} setOpenRegister={setOpenModalRegister} handleClose={handleClose} />
-      <RegisterDialog open={openModalRegister} setOpen={setOpenModalRegister} setOpenLogin={setOpenModal} handleCloseRegister={handleCloseRegister} />
+      {!isLogged && (
+        <>
+          <LoginDialog
+            loginState={loginState}
+            setLoginState={setLoginState}
+            open={openModal}
+            setOpen={setOpenModal}
+            setOpenRegister={setOpenModalRegister}
+            handleClose={handleClose}
+          />
+          <RegisterDialog
+            open={openModalRegister}
+            setOpen={setOpenModalRegister}
+            setOpenLogin={setOpenModal}
+            handleCloseRegister={handleCloseRegister}
+          />
+        </>
+      )}
+
       <Box
         component="img"
         alt="The house from the offer."
@@ -135,12 +154,12 @@ console.log(loginState, 'l');
             fontWeight: 400,
             textTransform: "none",
           }}
-          onClick={() => !loginState ? setOpenModal(true) : null}
+          onClick={() => (!isLogged ? setOpenModal(true) : null)}
         >
-          {loginState ? "My account" : "login"}
+          {isLogged ? "My account" : "login"}
         </Button>
-        {loginState && subMenuState && (
-          <Box component="div" className={classes.subMenu} onClick={() => { }}>
+        {isLogged && subMenuState && (
+          <Box component="div" className={classes.subMenu} onClick={() => {}}>
             <div
               style={{
                 display: "flex",
