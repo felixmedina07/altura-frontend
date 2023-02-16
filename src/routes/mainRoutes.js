@@ -8,6 +8,7 @@ const LaunchForces = lazy(() => import("../page/LaunchForces"));
 const Vanity = lazy(() => import("../page/Vanity"));
 const Marketplace = lazy(() => import("../page/Marketplace"));
 const DeckBuilder = lazy(() => import("../page/DeckBuilder"));
+const LearnMore = lazy(() => import("../page/LearnMore"));
 
 const MainRoutes = () => {
   return (
@@ -21,6 +22,7 @@ const MainRoutes = () => {
           <Route path="marketplace" element={<Marketplace />} />
           <Route path="*" element={<Error404 />} />
           <Route path="deck-builder" element={<DeckBuilder />} />
+          <Route path="learn-more" element={<LearnMore />} />
         </Routes>
       </Suspense>
     </BrowserRouter>

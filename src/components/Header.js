@@ -110,7 +110,7 @@ console.log(loginState, 'l');
       <NavItem name="Home" key={1} route={true} />
       <NavItem name="Collections" subMenu={true} key={2} />
       <NavItem name="Marketplace" route={true} key={3} />
-      <NavItem name="Learn More" key={4} />
+      <NavItem name="Learn More" route={true} key={4} />
       <div
         onMouseEnter={() => {
           setSubMenuState(true);

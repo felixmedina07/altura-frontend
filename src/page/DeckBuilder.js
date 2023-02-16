@@ -8,7 +8,7 @@ import VanityImage1 from "../assets/vanityImage1.png";
 import TowArrow from "../assets/arrowDoble.svg";
 import Arrow from "../assets/arrowFilter.svg";
 import Deck from "../assets/deckIcons.svg";
-import Filter from "../components/filter";
+import DeckList from "../components/DeckList";
 import FilterByPrice from "../components/filterByPrice";
 
 const Contain = styled(Box)({
@@ -62,7 +62,7 @@ const FilterContainer = styled(Box)(
   () => `
     display: flex;
     justify-content: space-evenly;
-    width: 80%;
+    width: 100%;
     @media (max-width: 1000px) {
       width: 90%;
     }
@@ -107,7 +107,7 @@ const DeckBuilder = () => {
 
   return (
     <Layout notFooter={true}>
-      <Filter visible={visibleFilter} setFilter={setFilters} />
+      {/* <DeckList visible={visibleFilter} setFilter={setFilters} /> */}
       <FilterByPrice
         setFilter={setFilters}
         visible={visibleFilterByPrice}
@@ -115,11 +115,11 @@ const DeckBuilder = () => {
       />
       <Contain>
         <FilterContainer>
-          <ButtomContainer style={{ width: '75%', marginLeft: '4rem' }}>
+          <ButtomContainer style={{ width: '80%', marginLeft: '13rem' }}>
             <TextTitle>Deck Builder</TextTitle>
             <VanityImageBarNeon component="img" src={VanityImage1} />
           </ButtomContainer>
-          <ButtomContainer style={{ width: '25%' }}>
+          <ButtomContainer style={{ width: '20%', flexBasis: 'fit-content' }}>
             <Buttom onClick={() => setVisibleFilter((state) => !state)}>
               <Ico src={Deck} style={{marginRight: '0.5rem'}} />
               <TextTitle>My Decks</TextTitle>

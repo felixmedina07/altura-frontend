@@ -106,6 +106,9 @@ export const NavItem = ({ name, subMenu, route }) => {
       if(name === "Marketplace"){
         navigate("/marketplace");
       }
+      if(name === "Learn More"){
+        navigate("/learn-more")
+      }
     }
     return;
   }
