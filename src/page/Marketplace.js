@@ -104,7 +104,6 @@ const Marketplace = () => {
   const [filters, setFilters] = useState([]);
   const [visibleFilter, setVisibleFilter] = useState(false);
   const [visibleFilterByPrice, setVisibleFilterByPrice] = useState(false);
-
   const cardsFiltered = useMemo(() => {
     if (filters.length < 1) {
       return dummyCards;
@@ -137,7 +136,7 @@ const Marketplace = () => {
 
     return [...deleteDuplicate];
   }, [filters]);
-
+  console.log(cardsFiltered);
   return (
     <Layout notFooter={true}>
       <Filter visible={visibleFilter} setFilter={setFilters} />
