@@ -1,9 +1,9 @@
 import { forwardRef } from "react";
-import Dialog from "@mui/material/Dialog";
+import { Dialog } from "@mui/material";
 import Slide from "@mui/material/Slide";
-import RegisterForm from "./RegisterForm";
-import styled from "styled-components";
+import ResetPasswordForm from "./ResetPasswordForm";
 import CloseIcon from "@mui/icons-material/Close";
+import styled from "styled-components";
 
 const Transition = forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -15,12 +15,7 @@ const Button = styled("div")({
   cursor: "pointer",
 });
 
-export const RegisterDialog = ({
-  open,
-  handleCloseRegister,
-  setOpen,
-  setOpenLogin,
-}) => {
+const ResetPasswordDialog = ({ open, handleClose, setOpen, setOpenLogin }) => {
   const closeModal = () => {
     setOpen(false);
     setOpenLogin(true);
@@ -39,13 +34,15 @@ export const RegisterDialog = ({
       open={open}
       TransitionComponent={Transition}
       keepMounted
-      onClose={handleCloseRegister}
+      onClose={handleClose}
       aria-describedby="alert-dialog-slide-description"
     >
       <Button onClick={closeModal}>
         <CloseIcon sx={{ color: "white", fontSize: 20 }} />
       </Button>
-      <RegisterForm />
+      <ResetPasswordForm />
     </Dialog>
   );
 };
+
+export default ResetPasswordDialog;

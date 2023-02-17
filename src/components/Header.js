@@ -8,6 +8,8 @@ import { NavItem } from "./NavItem";
 import { LoginDialog } from "./LoginDialog";
 import { RegisterDialog } from "./RegisterDialog";
 import { UserContext } from "../context/mainContext";
+import ResetPasswordDialog from "./ResetPasswordDialog";
+import { useEffect } from "react";
 const useStyles = makeStyles({
   contain: {
     background:
@@ -64,8 +66,11 @@ const SubTextMenuNav = styled("p")({
 
 export const Header = () => {
   const { isLogged, setIsLogged, setToken, setUser } = useContext(UserContext);
+
   const [openModal, setOpenModal] = useState(false);
   const [openModalRegister, setOpenModalRegister] = useState(false);
+  const [openResetPasswordModal, setOpenResetPasswordModal] = useState(false);
+
   const [loginState, setLoginState] = useState(false);
   const [subMenuState, setSubMenuState] = useState(false);
   const navigate = useNavigate();
@@ -99,6 +104,11 @@ export const Header = () => {
   const handleCloseRegister = () => {
     setOpenModalRegister(false);
   };
+
+  const handleCloseResetPassword = () => {
+    setOpenResetPasswordModal(false);
+  };
+
   const classes = useStyles();
   return (
     <div className={classes.contain}>
@@ -111,12 +121,19 @@ export const Header = () => {
             setOpen={setOpenModal}
             setOpenRegister={setOpenModalRegister}
             handleClose={handleClose}
+            setOpenResetPasswordModal={setOpenResetPasswordModal}
           />
           <RegisterDialog
             open={openModalRegister}
             setOpen={setOpenModalRegister}
             setOpenLogin={setOpenModal}
             handleCloseRegister={handleCloseRegister}
+          />
+          <ResetPasswordDialog
+            open={openResetPasswordModal}
+            setOpen={setOpenResetPasswordModal}
+            setOpenLogin={setOpenModal}
+            handleClose={handleCloseResetPassword}
           />
         </>
       )}

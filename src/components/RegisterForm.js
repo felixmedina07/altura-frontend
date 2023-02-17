@@ -3,10 +3,11 @@ import RegisterTextInput from "./TextInput";
 import styled from "styled-components";
 import IconButton from "@mui/material/IconButton";
 import Box from "@mui/material/Box";
-import ButtonRegisterModal from "../assets/buttonRegisterModal.svg";
 import BarLight from "../assets/BarLight.svg";
 import { OPERATION_SAVE_PLACE_API } from "../config/config";
 import { useState } from "react";
+import Loader from "./loader";
+import Button from "./button";
 
 const TextForgot = styled("p")({
   color: "#FFFFFF",
@@ -22,7 +23,6 @@ const Form = styled.form({
   justifyContent: "center",
   alignItems: "center",
   flexDirection: "column",
-  marginTop: "2rem",
 });
 
 const ConfirmEmailContainer = styled.div({
@@ -50,6 +50,7 @@ const TextLink = styled("p")({
 
 const RegisterForm = () => {
   const [status, setStatus] = useState(undefined);
+  const [loading, setLoading] = useState(false);
 
   const validateEmail = ({ email }) => {
     const errors = {};
@@ -103,8 +104,9 @@ const RegisterForm = () => {
 
   const onRegisterUser = async (
     { userName, email, password },
-    { setSubmitting }
+    { setSubmitting, setErrors }
   ) => {
+    setLoading(true);
     const isRegistered = await fetch(`${OPERATION_SAVE_PLACE_API}/auth`, {
       method: "POST",
       body: JSON.stringify({
@@ -116,9 +118,26 @@ const RegisterForm = () => {
         "Content-Type": "application/json",
       },
     });
-    const result = isRegistered.status;
-    setStatus(result);
+    const result = await isRegistered.json();
+    setErrors({ verifyPassword: result.message });
+    setStatus(isRegistered.status);
     setSubmitting(false);
+    setLoading(false);
+  };
+
+  const onResendEmail = async (email) => {
+    setLoading(true);
+    await fetch(`${OPERATION_SAVE_PLACE_API}/auth/resend-email`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        email,
+      }),
+    });
+
+    setLoading(false);
   };
 
   return (
@@ -130,6 +149,7 @@ const RegisterForm = () => {
         verifyPassword: "",
       }}
       validate={(values) => {
+        setStatus(undefined);
         const username = validateUsername(values);
         if (username.userName) return username;
         const email = validateEmail(values);
@@ -195,13 +215,8 @@ const RegisterForm = () => {
             {errors.verifyPassword && touched.verifyPassword && (
               <TextForgot>{errors.verifyPassword}</TextForgot>
             )}
-            <IconButton
-              type="submit"
-              style={{ padding: 0, marginTop: "2rem" }}
-              disabled={isSubmitting}
-            >
-              <Box component="img" src={ButtonRegisterModal} />
-            </IconButton>
+            <Button text={"Sign up"} type="submit" disabled={isSubmitting} />
+            <Loader isVisible={loading} />
             {status === 200 && (
               <>
                 <ConfirmEmailContainer>
@@ -217,7 +232,7 @@ const RegisterForm = () => {
                     style={{ width: 100, height: 38 }}
                   />
                 </ConfirmEmailContainer>
-                <IconButton>
+                <IconButton onClick={() => onResendEmail(values.email)}>
                   <TextLink>Re-send confirmation email</TextLink>
                 </IconButton>
               </>

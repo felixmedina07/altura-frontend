@@ -10,6 +10,7 @@ const Marketplace = lazy(() => import("../page/Marketplace"));
 const DeckBuilder = lazy(() => import("../page/DeckBuilder"));
 const VerifyCode = lazy(() => import("../page/verifyCode"));
 const LearnMore = lazy(() => import("../page/LearnMore"));
+const ResetPassword = lazy(() => import("../page/ResetPassword"));
 
 const MainRoutes = () => {
   return (
@@ -25,6 +26,7 @@ const MainRoutes = () => {
           <Route path="deck-builder" element={<DeckBuilder />} />
           <Route path="verifyCode" element={<VerifyCode />} />
           <Route path="learn-more" element={<LearnMore />} />
+          <Route path="resetPassword" element={<ResetPassword />} />
         </Routes>
       </Suspense>
     </BrowserRouter>

@@ -13,6 +13,8 @@ import ALTURA from "../assets/ALTURA.svg";
 import LogoDefender from "../assets/logoDefender.png";
 import { OPERATION_SAVE_PLACE_API } from "../config/config";
 import { UserContext } from "../context/mainContext";
+import Loader from "./loader";
+import Button from "./button";
 
 const Form = styled.form({
   display: "flex",
@@ -56,10 +58,14 @@ const TextTitle = styled("p")({
   margin: 0,
 });
 
-const LoginForm = ({ setOpen, setOpenRegister }) => {
+const LoginForm = ({ setOpen, setOpenRegister, setOpenResetPasswordModal }) => {
   const { setIsLogged, setToken, setUser } = useContext(UserContext);
+  const [loading, setLoading] = useState(false);
+
   const handleGoToForgetPassword = () => {
-    console.log("reset password");
+    setOpen(false);
+    setOpenRegister(false);
+    setOpenResetPasswordModal(true);
   };
 
   const handleRegister = () => {
@@ -71,8 +77,14 @@ const LoginForm = ({ setOpen, setOpenRegister }) => {
     { userName, password },
     { setSubmitting, setErrors }
   ) => {
+    setLoading(true);
     const errors = validate({ userName, password });
     setErrors(errors);
+    if (Object.keys(errors).length > 0) {
+      setLoading(false);
+      setSubmitting(false);
+      return;
+    }
     try {
       const isLogin = await fetch(`${OPERATION_SAVE_PLACE_API}/auth/login`, {
         method: "POST",
@@ -95,6 +107,7 @@ const LoginForm = ({ setOpen, setOpenRegister }) => {
     } catch (e) {
       console.log(e);
     }
+    setLoading(false);
     setSubmitting(false);
   };
 
@@ -141,7 +154,6 @@ const LoginForm = ({ setOpen, setOpenRegister }) => {
         handleBlur,
         isSubmitting,
         errors,
-        touched,
       }) => (
         <Form onSubmit={handleSubmit}>
           <div
@@ -161,7 +173,7 @@ const LoginForm = ({ setOpen, setOpenRegister }) => {
             />
           </div>
           <TextInput
-            title={"Username"}
+            title={"Username or Email"}
             handleBlur={handleBlur}
             name={"userName"}
             setText={handleChange}
@@ -181,14 +193,8 @@ const LoginForm = ({ setOpen, setOpenRegister }) => {
           </TextForgot>
           {errors.userName && <TextForgot>{errors.userName}</TextForgot>}
           {errors.password && <TextForgot>{errors.password}</TextForgot>}
-          <IconButton
-            type="submit"
-            style={{ padding: 0 }}
-            disabled={isSubmitting}
-          >
-            <Box component="img" src={ButtonLoginModal} />
-          </IconButton>
-
+          <Loader isVisible={loading} />
+          <Button text={"Login"} type="submit" disabled={isSubmitting} />
           <div
             style={{
               display: "flex",
