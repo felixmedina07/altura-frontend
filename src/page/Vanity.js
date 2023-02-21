@@ -22,11 +22,8 @@ import "swiper/css/effect-coverflow";
 import { Autoplay, Navigation, EffectCoverflow } from "swiper";
 
 const Contain = styled(Box)({
-  backgroundImage: `url(${"./image/Rectangle.png"})`,
   width: "100%",
   height: "100%",
-  backgroundRepeat: "no-repeat",
-  backgroundSize: "cover",
 });
 const ContainTwo = styled(Box)({
   background: "#0C0117",
@@ -37,7 +34,6 @@ const Row = styled("div")`
   width: 100%;
   display: flex;
   flex-direction: row;
-  padding-top: 6rem;
   @media (max-width: 1024px) {
     margin-left: 4rem;
   }
@@ -294,11 +290,17 @@ const Vanity = ({}) => {
                 alignItems: "center",
               }}
             >
-              <IconButton color="transparent" onClick={() => swiperRef.current?.slidePrev()}>
+              <IconButton
+                color="transparent"
+                onClick={() => swiperRef.current?.slidePrev()}
+              >
                 <Box component="img" src={arrowLeft} />
               </IconButton>
               <TextButton>Trophies</TextButton>
-              <IconButton color="transparent" onClick={() => swiperRef.current?.slideNext()}>
+              <IconButton
+                color="transparent"
+                onClick={() => swiperRef.current?.slideNext()}
+              >
                 <Box component="img" src={arrowRight} />
               </IconButton>
             </div>
@@ -366,11 +368,19 @@ const Vanity = ({}) => {
               }}
             >
               <IconButton color="transparent">
-                <Box component="img" src={arrowLeft}  onClick={() => swiperTwoRef.current?.slidePrev()}/>
+                <Box
+                  component="img"
+                  src={arrowLeft}
+                  onClick={() => swiperTwoRef.current?.slidePrev()}
+                />
               </IconButton>
               <TextButton>Favorite Cards</TextButton>
               <IconButton color="transparent">
-                <Box component="img" src={arrowRight} onClick={() => swiperTwoRef.current?.slideNext()}/>
+                <Box
+                  component="img"
+                  src={arrowRight}
+                  onClick={() => swiperTwoRef.current?.slideNext()}
+                />
               </IconButton>
             </div>
             <Swiper
@@ -441,7 +451,13 @@ const Vanity = ({}) => {
             <Box component="img" src={arrowRight} />
           </IconButton>
         </div>
-        <div style={{display: 'flex', flexDirection: 'row', justifyContent: 'center'}}>
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "row",
+            justifyContent: "center",
+          }}
+        >
           <Box component="img" src={Grid} />
         </div>
       </ContainTwo>

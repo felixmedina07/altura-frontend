@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useEffect } from "react";
 import Box from "@mui/material/Box";
 import styled from "styled-components";
 import { Layout } from "../components/Layout";
@@ -10,20 +10,19 @@ import Arrow from "../assets/arrowFilter.svg";
 import Deck from "../assets/deckIcons.svg";
 import DeckList from "../components/DeckList";
 import FilterByPrice from "../components/filterByPrice";
+import { OPERATION_SAVE_PLACE_API } from "../config/config";
+import Loader from "../components/loader";
 
 const Contain = styled(Box)({
-  backgroundImage: `url(${"./image/Rectangle.png"})`,
   width: "100%",
-  backgroundRepeat: "no-repeat",
-  backgroundSize: "cover",
   zIndex: -1,
   display: "flex",
-  flexDirection: "column",
-  alignItems: "center",
+  flexDirection: "row",
+  justifyContent: "space-around",
 });
 
 const ContainerList = styled(Box)({
-  maxWidth: "1200px",
+  maxWidth: "1000px",
   width: "100%",
   display: "grid",
   gap: 20,
@@ -95,8 +94,20 @@ const ButtomContainer = styled(Box)(
   () => `
   display: flex;
   flex-direction: column;
-  padding-top: 90px;
   align-items: center;
+`
+);
+
+const LouderContainer = styled(Box)(
+  () => `
+    margin-top: 10rem;
+    margin-left: 20rem;
+  `
+);
+
+const CenterContainer = styled.div(
+  () => `
+
 `
 );
 
@@ -104,34 +115,58 @@ const DeckBuilder = () => {
   const [filters, setFilters] = useState([]);
   const [visibleFilter, setVisibleFilter] = useState(false);
   const [visibleFilterByPrice, setVisibleFilterByPrice] = useState(false);
+  const [allCards, setCards] = useState([]);
+  const [loading, setLoading] = useState(false);
+
+  const getAllCards = async () => {
+    setLoading(true);
+    const result = await fetch(`${OPERATION_SAVE_PLACE_API}/card/all`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    const allCards = await result.json();
+    setCards(allCards.card);
+    setLoading(false);
+  };
+
+  useEffect(() => {
+    getAllCards();
+  }, []);
 
   return (
     <Layout notFooter={true}>
-      {/* <DeckList visible={visibleFilter} setFilter={setFilters} /> */}
-      <FilterByPrice
-        setFilter={setFilters}
-        visible={visibleFilterByPrice}
-        setVisible={setVisibleFilterByPrice}
-      />
       <Contain>
-        <FilterContainer>
-          <ButtomContainer style={{ width: '80%', marginLeft: '13rem' }}>
-            <TextTitle>Deck Builder</TextTitle>
-            <VanityImageBarNeon component="img" src={VanityImage1} />
-          </ButtomContainer>
-          <ButtomContainer style={{ width: '20%', flexBasis: 'fit-content' }}>
-            <Buttom onClick={() => setVisibleFilter((state) => !state)}>
-              <Ico src={Deck} style={{marginRight: '0.5rem'}} />
-              <TextTitle>My Decks</TextTitle>
-            </Buttom>
-            <VanityImageBarNeon component="img" src={VanityImage1} />
-          </ButtomContainer>
-        </FilterContainer>
-        <ContainerList>
-          {dummyCards.map((item, index) => (
-            <Card key={`${index}-${item.name}-${Math.random()}`} item={item} />
-          ))}
-        </ContainerList>
+        <CenterContainer>
+          <FilterContainer>
+            <ButtomContainer style={{ width: "80%", marginLeft: "13rem" }}>
+              <TextTitle>Deck Builder</TextTitle>
+              <VanityImageBarNeon component="img" src={VanityImage1} />
+            </ButtomContainer>
+            <ButtomContainer>
+              <Buttom onClick={() => setVisibleFilter((state) => !state)}>
+                <Ico src={Deck} style={{ marginRight: "0.5rem" }} />
+                <TextTitle>My Decks</TextTitle>
+              </Buttom>
+              <VanityImageBarNeon component="img" src={VanityImage1} />
+            </ButtomContainer>
+          </FilterContainer>
+          {loading && (
+            <LouderContainer>
+              <Loader isVisible={loading} />
+            </LouderContainer>
+          )}
+          <ContainerList>
+            {allCards.map((item, index) => (
+              <Card
+                key={`${index}-${item.name}-${Math.random()}`}
+                item={item}
+              />
+            ))}
+          </ContainerList>
+        </CenterContainer>
       </Contain>
     </Layout>
   );

@@ -3,7 +3,6 @@ import { Layout } from "../components/Layout";
 import styled from "styled-components";
 import { Box } from "@mui/material";
 const Contain = styled(Box)({
-  backgroundImage: `url(${"./image/Rectangle.png"})`,
   width: "100%",
   height: "100%",
   backgroundRepeat: "no-repeat",
@@ -14,13 +13,12 @@ const Row = styled("div")`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  padding-top: 6rem;
   @media (min-width: 1440px) {
-    justify-content:space-evenly;
+    justify-content: space-evenly;
   }
 
   @media (max-width: 1024px) {
-    justify-content:space-between;
+    justify-content: space-between;
   }
 `;
 
@@ -93,16 +91,16 @@ const RowContentTextBoard = styled("div")(
   ({ hover }) => `
   display:flex;
   flex-direction:row;
-  justify-content: ${hover ? 'space-between' : 'space-evenly'}; ;
+  justify-content: ${hover ? "space-between" : "space-evenly"}; ;
 `
 );
 const BackgroundContentGradient = styled("div")(
   ({ hover }) => `
   @media (max-width: 1024px) {
-    padding-right: ${hover ? '5px' : '0'};
-    padding-left: ${hover ? '5px' : '0'};
-    margin-left: ${hover ? '23px' : '0'};
-    margin-right: ${hover ? '23px' : '0'};
+    padding-right: ${hover ? "5px" : "0"};
+    padding-left: ${hover ? "5px" : "0"};
+    margin-left: ${hover ? "23px" : "0"};
+    margin-right: ${hover ? "23px" : "0"};
     background: ${
       hover
         ? "linear-gradient(270deg, rgba(26, 255, 222, 0.5) 0%, rgba(26, 255, 222, 0) 50.01%, rgba(26, 255, 222, 0.5) 100.01%)"
@@ -111,10 +109,10 @@ const BackgroundContentGradient = styled("div")(
   }
 
   @media (min-width: 1440px) {
-    padding-right: ${hover ? '10px' : '0'};
-    padding-left: ${hover ? '10px' : '0'};
-    margin-left: ${hover ? '30px' : '0'};
-    margin-right: ${hover ? '30px' : '0'};
+    padding-right: ${hover ? "10px" : "0"};
+    padding-left: ${hover ? "10px" : "0"};
+    margin-left: ${hover ? "30px" : "0"};
+    margin-right: ${hover ? "30px" : "0"};
     background: ${
       hover
         ? "linear-gradient(270deg, rgba(26, 255, 222, 0.5) 0%, rgba(26, 255, 222, 0) 50.01%, rgba(26, 255, 222, 0.5) 100.01%)"
@@ -148,7 +146,6 @@ const Text = styled("p")`
   }
 `;
 const TitleText = styled("p")`
- 
   color: #ffffff;
   font-family: "Genesis";
   font-weight: 400;
@@ -211,23 +208,27 @@ const LaunchForces = ({}) => {
               <TitleText>Score</TitleText>
               <TitleText>Rank</TitleText>
             </div>
-            <div style={{position:'relative'}}>
-            {textBoard?.map((item, index) => (
-              <BackgroundContentGradient hover={index + 1 === 10 ? true : false}>
-                <RowContentTextBoard hover={index + 1 === 10 ? true : false}>
-                <TitleText style={{ textAlign: "left" }}>
-                  {item.username}
-                </TitleText>
-                <TitleText style={{ textAlign: "right" }}>{item.lvl}</TitleText>
-                <TitleText style={{ textAlign: "right" }}>
-                  {item.score}
-                </TitleText>
-                <TitleText style={{ textAlign: "right" }}>
-                  {item.rank}
-                </TitleText>
-              </RowContentTextBoard>
-              </BackgroundContentGradient>
-            ))}
+            <div style={{ position: "relative" }}>
+              {textBoard?.map((item, index) => (
+                <BackgroundContentGradient
+                  hover={index + 1 === 10 ? true : false}
+                >
+                  <RowContentTextBoard hover={index + 1 === 10 ? true : false}>
+                    <TitleText style={{ textAlign: "left" }}>
+                      {item.username}
+                    </TitleText>
+                    <TitleText style={{ textAlign: "right" }}>
+                      {item.lvl}
+                    </TitleText>
+                    <TitleText style={{ textAlign: "right" }}>
+                      {item.score}
+                    </TitleText>
+                    <TitleText style={{ textAlign: "right" }}>
+                      {item.rank}
+                    </TitleText>
+                  </RowContentTextBoard>
+                </BackgroundContentGradient>
+              ))}
             </div>
           </ColumnOne>
           <ColumnTwo>

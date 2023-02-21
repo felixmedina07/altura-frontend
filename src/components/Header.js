@@ -9,13 +9,12 @@ import { LoginDialog } from "./LoginDialog";
 import { RegisterDialog } from "./RegisterDialog";
 import { UserContext } from "../context/mainContext";
 import ResetPasswordDialog from "./ResetPasswordDialog";
-import { useEffect } from "react";
 const useStyles = makeStyles({
   contain: {
     background:
       "linear-gradient(90deg, rgba(26, 255, 222, 0.2) 0%, rgba(0, 0, 0, 0.2) 20%, rgba(0, 0, 0, 0.2) 80%, rgba(26, 255, 222, 0.2) 100%);",
     display: "flex",
-    position: "fixed",
+    position: "absolute",
     width: "100%",
     flexDirection: "row",
     justifyContent: "space-around",

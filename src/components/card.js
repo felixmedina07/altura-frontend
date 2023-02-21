@@ -10,9 +10,10 @@ const Container = styled(Box)({
 });
 
 const Background = styled(Box)({
-  border: '3px solid #1affde',
-  background: 'rgba(0, 0, 0, 0.4)',  
-  boxShadow: '0 0 0.1vw 0.1vw #1affde, 0 0 0.1vw 0.1vw #1affde, 0 0 1vw 0.1vw #1affde',  
+  border: "3px solid #1affde",
+  background: "rgba(0, 0, 0, 0.4)",
+  boxShadow:
+    "0 0 0.1vw 0.1vw #1affde, 0 0 0.1vw 0.1vw #1affde, 0 0 1vw 0.1vw #1affde",
   padding: "3px",
   margin: "2px",
 });
@@ -54,18 +55,18 @@ const ImageItem = styled("img")(
 );
 
 const Card = ({ item }) => {
-  const { name, number, image } = item;
+  const { name, index, card } = item;
   return (
     <ItemContainer>
       <Container>
         <Background>
           <Name>{name}</Name>
-          <Number>{number}</Number>
+          <Number>{index}</Number>
           <ImageItem
             alt={name}
             loading="lazy"
-            src={`${image}?w=100&h=100&fit=crop&auto=format`}
-            srcSet={`${image}?w=20&h=20&fit=crop&auto=format&dpr=2 2x`}
+            src={`${card}`}
+            srcSet={`${card}`}
           />
         </Background>
       </Container>
