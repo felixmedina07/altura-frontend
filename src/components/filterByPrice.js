@@ -4,7 +4,7 @@ const Background = styled("div")(
   ({ visible }) => `
       display: flex;
       background-color: rgba(0, 0, 0, 0.9);
-      width: 200px;
+      width: 13vw;
       height: 300px
       z-index:500;
       flex-direction: column;

@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useEffect } from "react";
+import React, { useState, useMemo, useEffect, useContext } from "react";
 import Box from "@mui/material/Box";
 import styled from "styled-components";
 import { Layout } from "../components/Layout";
@@ -10,10 +10,11 @@ import FilterByType from "../components/filterByType";
 import FilterByPrice from "../components/filterByPrice";
 import { OPERATION_SAVE_PLACE_API } from "../config/config";
 import Loader from "../components/loader";
+import Cart from "../components/cart";
+import { UserContext } from "../context/mainContext";
 
 const Contain = styled(Box)({
   width: "100%",
-  height: "100%",
   zIndex: -1,
   display: "flex",
   flexDirection: "row",
@@ -22,16 +23,15 @@ const Contain = styled(Box)({
 
 const CenterContainer = styled.div(
   () => `
-
+  margin: 0px 1rem 0px 1rem
 `
 );
 
 const ContainerList = styled(Box)({
-  maxWidth: "1000px",
-  width: "100%",
   display: "grid",
   gap: 20,
   gridTemplateColumns: "repeat(auto-fill, minmax(200px, 1fr))!important",
+  marginBottom: "100px",
 });
 
 const TextTitle = styled("p")`
@@ -40,7 +40,7 @@ const TextTitle = styled("p")`
   font-size: 16px;
   font-weight: 400;
   text-align: center;
-  margin: 0;
+  margin: 0px 10px 0px 10px;
   @media (max-width: 1000px) {
     font-size: 14px;
   }
@@ -111,11 +111,13 @@ const LouderContainer = styled(Box)(
 );
 
 const Marketplace = () => {
+  const { token } = useContext(UserContext);
   const [filters, setFilters] = useState([]);
   const [visibleFilter, setVisibleFilter] = useState(false);
   const [visibleFilterByPrice, setVisibleFilterByPrice] = useState(false);
   const [allCards, setCards] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [cart, setCart] = useState([]);
 
   const getAllCards = async () => {
     setLoading(true);
@@ -127,13 +129,43 @@ const Marketplace = () => {
     });
 
     const allCards = await result.json();
-    setCards(allCards.card);
+
+    if (!token) {
+      setCards(allCards.card);
+      setLoading(false);
+      return;
+    }
+
+    const userCardResult = await fetch(
+      `${OPERATION_SAVE_PLACE_API}/card-users/my-cards`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+
+    const userCards = await userCardResult.json();
+
+    const cardsFiltered = allCards.card.map((itemMarketplace) => {
+      const isCard = userCards.result.cards.some((itemUser) => {
+        return itemMarketplace.card === itemUser.card;
+      });
+      if (isCard) {
+        return { ...itemMarketplace, userHas: true };
+      }
+      return { ...itemMarketplace, userHas: false };
+    });
+
+    setCards(cardsFiltered);
     setLoading(false);
   };
 
   useEffect(() => {
     getAllCards();
-  }, []);
+  }, [token]);
 
   const cardsFiltered = useMemo(() => {
     if (filters.length < 1) {
@@ -206,6 +238,9 @@ const Marketplace = () => {
                 <Card
                   key={`${index}-${item.name}-${Math.random()}`}
                   item={{ ...item, index }}
+                  setCart={setCart}
+                  cart={cart}
+                  isMarketplace={true}
                 />
               ))}
             </ContainerList>
@@ -215,6 +250,12 @@ const Marketplace = () => {
           setFilter={setFilters}
           visible={visibleFilterByPrice}
           setVisible={setVisibleFilterByPrice}
+        />
+        <Cart
+          cart={cart}
+          setCart={setCart}
+          setLoading={setLoading}
+          getAllCards={getAllCards}
         />
       </Contain>
     </Layout>

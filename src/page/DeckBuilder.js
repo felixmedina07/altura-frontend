@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useEffect } from "react";
+import React, { useState, useMemo, useEffect, useContext } from "react";
 import Box from "@mui/material/Box";
 import styled from "styled-components";
 import { Layout } from "../components/Layout";
@@ -12,6 +12,8 @@ import DeckList from "../components/DeckList";
 import FilterByPrice from "../components/filterByPrice";
 import { OPERATION_SAVE_PLACE_API } from "../config/config";
 import Loader from "../components/loader";
+import { UserContext } from "../context/mainContext";
+import { useNavigate } from "react-router-dom";
 
 const Contain = styled(Box)({
   width: "100%",
@@ -112,6 +114,8 @@ const CenterContainer = styled.div(
 );
 
 const DeckBuilder = () => {
+  const { token } = useContext(UserContext);
+  const navigate = useNavigate();
   const [filters, setFilters] = useState([]);
   const [visibleFilter, setVisibleFilter] = useState(false);
   const [visibleFilterByPrice, setVisibleFilterByPrice] = useState(false);
@@ -120,15 +124,22 @@ const DeckBuilder = () => {
 
   const getAllCards = async () => {
     setLoading(true);
-    const result = await fetch(`${OPERATION_SAVE_PLACE_API}/card/all`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
+    const result = await fetch(
+      `${OPERATION_SAVE_PLACE_API}/card-users/my-cards`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
 
     const allCards = await result.json();
-    setCards(allCards.card);
+    if (allCards.statusCode === 401) {
+      navigate("/");
+    }
+    setCards(allCards.result.cards);
     setLoading(false);
   };
 
@@ -162,7 +173,7 @@ const DeckBuilder = () => {
             {allCards.map((item, index) => (
               <Card
                 key={`${index}-${item.name}-${Math.random()}`}
-                item={item}
+                item={{ ...item, index }}
               />
             ))}
           </ContainerList>

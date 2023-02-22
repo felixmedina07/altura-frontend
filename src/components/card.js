@@ -1,4 +1,7 @@
+import { AddCircle } from "@mui/icons-material";
+import { IconButton } from "@mui/material";
 import Box from "@mui/material/Box";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 
 const Container = styled(Box)({
@@ -18,19 +21,24 @@ const Background = styled(Box)({
   margin: "2px",
 });
 
-const Name = styled("p")({
-  color: "#fff",
-  fontFamily: "Montserrat-Bold",
-  opacity: 0.4,
-  margin: 0,
-  fontSize: 12,
-});
+const Name = styled("p")(
+  ({ hover }) => `
+  font-family: Montserrat-Bold;
+  margin: 0;
+  font-size: 12px;
+  opacity:${hover ? 1 : 0.5};
+  &:hover{
+    opacity:1
+  }
+`
+);
 
 const Number = styled("p")({
   color: "#fff",
   fontFamily: "Montserrat-Regular",
   margin: 0,
-  fontSize: 12,
+  fontSize: 15,
+  fontWeight: 1000,
 });
 
 const ItemContainer = styled(Box)(
@@ -41,10 +49,10 @@ const ItemContainer = styled(Box)(
     transition: 1s;
     border: 1px solid #fff;
     box-shadow: 0 0 0.1vw 0.1vw #fff, 0 0 0.1vw 0.1vw #fff, 0 0 1vw 0.1vw #fff;
+    color: #fff;
     &:hover{
         width:102%
     }
-    cursor: pointer;
 `
 );
 
@@ -54,20 +62,42 @@ const ImageItem = styled("img")(
     `
 );
 
-const Card = ({ item }) => {
-  const { name, index, card } = item;
+const Card = ({ item, setCart, cart, isMarketplace = false }) => {
+  const [hover, setHover] = useState(false);
+  const [hoverAddBottom, setHoverAddBottom] = useState(false);
+  const { name, index, card, userHas } = item;
+
+  const addItemToCart = () => {
+    if (cart.some((cartItem) => cartItem.card === item.card)) {
+      return;
+    }
+    setCart((items) => [...items, item]);
+  };
+
   return (
-    <ItemContainer>
+    <ItemContainer
+      onMouseEnter={() => setHover(true)}
+      onMouseLeave={() => setHover(false)}
+    >
       <Container>
         <Background>
-          <Name>{name}</Name>
-          <Number>{index}</Number>
+          <Name hover={hover}>{name}</Name>
+          <Number>{`#${index}`}</Number>
           <ImageItem
             alt={name}
             loading="lazy"
             src={`${card}`}
             srcSet={`${card}`}
           />
+          {isMarketplace && !userHas && (
+            <IconButton sx={{ color: "#fff" }} onClick={addItemToCart}>
+              <AddCircle
+                onMouseEnter={() => setHoverAddBottom(true)}
+                onMouseLeave={() => setHoverAddBottom(false)}
+              />
+              <Name hover={hoverAddBottom}>Add to cart</Name>
+            </IconButton>
+          )}
         </Background>
       </Container>
     </ItemContainer>
