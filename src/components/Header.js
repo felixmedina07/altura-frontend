@@ -14,7 +14,9 @@ const useStyles = makeStyles({
     background:
       "linear-gradient(90deg, rgba(26, 255, 222, 0.2) 0%, rgba(0, 0, 0, 0.2) 20%, rgba(0, 0, 0, 0.2) 80%, rgba(26, 255, 222, 0.2) 100%);",
     display: "flex",
-    position: "absolute",
+    position: "fixed",
+    top: 0,
+    left: 0,
     width: "100%",
     flexDirection: "row",
     justifyContent: "space-around",

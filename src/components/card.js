@@ -1,8 +1,9 @@
 import { AddCircle } from "@mui/icons-material";
 import { IconButton } from "@mui/material";
 import Box from "@mui/material/Box";
-import { useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import styled from "styled-components";
+import { UserContext } from "../context/mainContext";
 
 const Container = styled(Box)({
   backgroundColor: "transparent",
@@ -63,6 +64,7 @@ const ImageItem = styled("img")(
 );
 
 const Card = ({ item, setCart, cart, isMarketplace = false }) => {
+  const { token } = useContext(UserContext);
   const [hover, setHover] = useState(false);
   const [hoverAddBottom, setHoverAddBottom] = useState(false);
   const { name, index, card, userHas } = item;
@@ -89,7 +91,7 @@ const Card = ({ item, setCart, cart, isMarketplace = false }) => {
             src={`${card}`}
             srcSet={`${card}`}
           />
-          {isMarketplace && !userHas && (
+          {isMarketplace && !userHas && token && (
             <IconButton sx={{ color: "#fff" }} onClick={addItemToCart}>
               <AddCircle
                 onMouseEnter={() => setHoverAddBottom(true)}

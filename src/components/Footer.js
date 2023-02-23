@@ -1,9 +1,9 @@
-import React, { useState } from "react";
+import React from "react";
 import { makeStyles } from "@mui/styles";
 import Box from "@mui/material/Box";
 const useStyles = makeStyles({
   contain: {
-    position: "absolute",
+    position: "fixed",
     bottom: 0,
     width: "100%",
     display: "flex",
@@ -32,9 +32,7 @@ export const Footer = () => {
           onClick={() => {}}
         />
       </Box>
-      <Box
-        component="a"
-      >
+      <Box component="a">
         <Box
           component="img"
           className={classes.imageHeader}
@@ -42,11 +40,7 @@ export const Footer = () => {
           src="./image/instagram.png"
         />
       </Box>
-      <Box
-        component="a"
-        href="https://discord.gg/thk66yGAN2"
-        target="_blank"
-      >
+      <Box component="a" href="https://discord.gg/thk66yGAN2" target="_blank">
         <Box
           component="img"
           className={classes.imageHeader}

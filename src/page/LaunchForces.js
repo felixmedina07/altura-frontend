@@ -45,15 +45,15 @@ const ColumnTwo = styled("div")`
   background-repeat: no-repeat;
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
   position: relative;
   @media (max-width: 1024px) {
     width: 735px;
-    height: 47px;
     margin-right: 15px;
   }
   @media (min-width: 1440px) {
     width: 735px;
-    height: 50px;
     margin-right: 15px;
   }
 `;
@@ -119,6 +119,14 @@ const BackgroundContentGradient = styled("div")(
         : "transparent"
     };
   }
+`
+);
+
+const GameContainer = styled.div(
+  () => `
+  width:960px;
+  height:540px;
+  
 `
 );
 
@@ -243,6 +251,11 @@ const LaunchForces = ({}) => {
                 <TextMenuOptions>Select Deck</TextMenuOptions>
               </ContText>
             </RowText>
+            <GameContainer
+              dangerouslySetInnerHTML={{
+                __html: `<iframe class="iframe" src="/game" />`,
+              }}
+            />
           </ColumnTwo>
         </Row>
       </Contain>

@@ -4,7 +4,7 @@ import {
   ExpandLess,
   ExpandMore,
 } from "@mui/icons-material";
-import { Button, IconButton } from "@mui/material";
+import { IconButton } from "@mui/material";
 import { useContext, useRef, useState } from "react";
 import styled from "styled-components";
 import { OPERATION_SAVE_PLACE_API } from "../config/config";
@@ -12,13 +12,15 @@ import { UserContext } from "../context/mainContext";
 
 const Container = styled.div(
   () => `
-    position: absolute;
+    position: fixed;
+    left: 0;
+    bottom: 0;
     z-index: 5000;
     bottom: 0px;
     background-color: rgba(0, 0, 0, 0.9);
     display: flex;
-  flex-direction: column;
-  align-items: center;
+    flex-direction: column;
+    align-items: center;
 `
 );
 

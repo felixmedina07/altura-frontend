@@ -5,6 +5,8 @@ import useMediaQuery from "@mui/material/useMediaQuery";
 import buttomPlay from "../assets/buttomPlay.svg";
 import IconButton from "@mui/material/IconButton";
 import { Typography } from "@mui/material";
+import { useNavigate } from "react-router-dom";
+
 const useStyles = makeStyles({
   screenBackground: {
     width: "100%",
@@ -15,6 +17,7 @@ const useStyles = makeStyles({
 const PrincipalScreen = ({}) => {
   const matches = useMediaQuery("(max-width:1024px)");
   const classes = useStyles();
+  const navigate = useNavigate();
   return (
     <Box component="div" className={classes.screenBackground}>
       <div
@@ -54,7 +57,10 @@ const PrincipalScreen = ({}) => {
             style={{ width: 512, height: 512 }}
             src="./image/girlFace.png"
           />
-          <IconButton style={{ position: "relative", bottom: "15%" }}>
+          <IconButton
+            style={{ position: "relative", bottom: "15%" }}
+            onClick={() => navigate("/launch-forces")}
+          >
             <Box
               component="img"
               src={buttomPlay}
