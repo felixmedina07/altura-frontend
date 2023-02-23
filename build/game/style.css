@@ -1,0 +1,142 @@
+@font-face {
+    font-family: "built bold";
+    src: url(fonts/built\ titling\ bd\ it.ttf) format("truetype");
+}
+
+
+body, html{
+    width:  100%;
+    height: 100%;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: black;
+    overflow: hidden;
+}
+
+#loading{
+    width: 10%;
+}
+
+#container{
+    position: relative;
+    display: none;   
+}
+
+#score{
+    position: absolute;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    color: white;
+    font-family: 'built bold';
+}
+
+#coin{
+    position: absolute;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    color: white;
+    font-family: 'built bold';
+}
+
+#level, #currentWave{
+    position: absolute;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    width: 90px;
+    top: 20px;
+    font-size: 22px;
+    color: white;
+    font-family: 'built bold';
+}
+
+#level{
+    left: 40%;
+}
+
+#currentWave{
+    left: 50%;
+}
+
+#heart{
+    position: absolute;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    width: 30px;
+    top: 68px;
+    left: 48.3%;
+    font-size: 13px;
+    color: white;
+    font-family: 'built bold';
+}
+
+#message{
+    position: absolute;
+    display: none;
+    width: 350px;
+    height: 80px;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 10px;
+    font-size: 72px;
+    text-align: center;
+    color: white;
+    font-family: 'built bold';
+    background-color: rgba(36, 225, 205, 1);
+    cursor: pointer;
+}
+
+#message:hover{
+    width: 300px;
+    height: 70px;
+    font-size: 60px;
+}
+
+#message:active{
+    opacity: 0.5;
+}
+
+#wave{
+    position: absolute;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-family: 'built bold';
+}
+
+#resources{
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    top: 4px;
+    right: 8px;
+    font-size: 35px;
+    color: white;
+    -webkit-text-stroke: 1px black;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+#backgroundResources{
+    position: absolute;
+    width: 400px;
+    height: 80px;
+    top: 0;
+    right: 0;
+}
+
+.resourcesContainer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
