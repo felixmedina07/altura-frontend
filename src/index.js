@@ -1,32 +1,31 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import {createGlobalStyle} from 'styled-components'
-export const AppRoot = createGlobalStyle`
-@font-face {
-  font-family: "Montserrat-Bold";
-  src: local("Montserrat-Bold"),
-   url("./assets/font/Montserrat-Bold.ttf");
-  font-weight: bold;
-  }
-  @font-face {
-    font-family: "Montserrat-Regular";
-    font-style: normal;
-    src: local("Montserrat-Regular"),
-     url("./assets/font/Montserrat-Regular.ttf");
-    }
-    @font-face {
-      font-family: "Montserrat-Italic";
-      src: local("Montserrat-Italic"),
-       url("./assets/font/Montserrat-Italic.ttf");
-       font-style: italic;
-      }
-`;
+// src/index.js
+
+import React from "react";
+import ReactDOM from "react-dom";
+import App from "./App";
+import reportWebVitals from "./reportWebVitals";
+
+const rootId = document.getElementById("root");
+
 ReactDOM.render(
   <React.StrictMode>
-    <AppRoot />
     <App />
   </React.StrictMode>,
-  document.getElementById('root') 
+  rootId
 );
+
+// If you want to start measuring performance in your app, pass a function
+// to log results (for example: reportWebVitals(console.log))
+// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
+reportWebVitals();
+if (module.hot && process.env.NODE_ENV === "development") {
+  module.hot.accept("./App", () => {
+    const NextApp = require("./App").default;
+    ReactDOM.render(
+      <React.StrictMode>
+        <App />
+      </React.StrictMode>,
+      rootId
+    );
+  });
+}

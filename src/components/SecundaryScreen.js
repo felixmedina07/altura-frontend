@@ -6,12 +6,12 @@ import { makeStyles } from "@mui/styles";
 import { Swiper, SwiperSlide } from "swiper/react";
 
 // Import Swiper styles
-import "swiper/css";
-import "swiper/css/effect-cards";
-import "swiper/css/navigation";
+import "swiper/scss";
+import "swiper/scss/effect-cards";
+import "swiper/scss/navigation";
 
 // import required modules
-import { EffectCards,Autoplay,Navigation } from "swiper";
+import { EffectCards, Autoplay, Navigation } from "swiper";
 
 const useStyles = makeStyles({
   screenBackground: {
@@ -22,12 +22,12 @@ const useStyles = makeStyles({
 });
 const Contain = styled("div")({
   width: "auto",
-  height:'100%',
+  height: "100%",
   display: "flex",
   flexDirection: "row",
   justifyContent: "center",
-  alignItems:'center',
-  marginLeft:70
+  alignItems: "center",
+  marginLeft: 70,
 });
 const Text = styled("p")({
   width: 512,
@@ -49,7 +49,7 @@ const SecundaryScreen = ({}) => {
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
-            width:'50%'
+            width: "50%",
           }}
         >
           <Box
@@ -78,20 +78,20 @@ const SecundaryScreen = ({}) => {
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
-            width:'50%',
-            boxShadow: '14px #fff',
+            width: "50%",
+            boxShadow: "14px #fff",
           }}
         >
           <Swiper
             effect={"cards"}
-            style={{width:'50%'}}
+            style={{ width: "50%" }}
             grabCursor={true}
             autoplay={{
               delay: 1500,
               disableOnInteraction: false,
             }}
             navigation={false}
-            modules={[EffectCards,Autoplay, Navigation]}
+            modules={[EffectCards, Autoplay, Navigation]}
           >
             <SwiperSlide key={1}>
               <Box

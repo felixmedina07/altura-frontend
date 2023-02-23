@@ -14,9 +14,9 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import arrowLeft from "../assets/arrowLeft.png";
 import arrowRight from "../assets/arrowRight.png";
 // Import Swiper styles
-import "swiper/css";
-import "swiper/css/navigation";
-import "swiper/css/effect-coverflow";
+import "swiper/scss";
+import "swiper/scss/navigation";
+import "swiper/scss/effect-coverflow";
 
 // import required modules
 import { Autoplay, Navigation, EffectCoverflow } from "swiper";
