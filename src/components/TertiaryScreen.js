@@ -3,33 +3,27 @@ import Box from "@mui/material/Box";
 import { makeStyles } from "@mui/styles";
 import Grid from "@mui/material/Grid";
 import styled from "styled-components";
-const useStyles = makeStyles({
-  screenBackground: {
-    background: "#090013",
-    width: "100%",
-    height: "80%",
-  },
-});
+
 const Contain = styled("div")`
   width: 100%;
-  height: 80%;
   display: flex;
   flex-direction: row;
-  margin-top: 80px;
   justify-content: space-between;
+  background: #090013;
+  padding: 40px 0 0 0;
   @media (max-width: 1440px) {
     justify-content: space-between;
   }
 `;
 const ColumnTwo = styled("div")`
-    display: flex;
-    flex-direction:column;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  margin-right: 35px;
+  @media (min-width: 1440px) {
     align-items: flex-end;
     margin-right: 35px;
-    @media (min-width: 1440px) {
-      align-items: flex-end;
-      margin-right: 35px;
-    }
+  }
 `;
 const ImageTwo = styled(Box)`
   @media (min-width: 1440px) {
@@ -53,7 +47,7 @@ const ContainRight = styled(Box)`
   justify-content: center;
   align-items: center;
   position: relative;
-  bottom:5%;
+  bottom: 5%;
   @media (max-width: 1440px) {
     display: flex;
     flex-direction: row;
@@ -75,18 +69,15 @@ const Text = styled("p")`
   text-align: right;
   font-family: "Montserrat-Regular";
   font-size: 15px;
-  position:relative;
-  bottom:5%;
+  position: relative;
   font-weight: 500;
   margin-top: 10px;
   @media (min-width: 1440px) {
     width: 550px;
-    height: 550px;
     margin-right: 15px;
   }
   @media (max-width: 1024px) {
     width: 485px;
-    height: 550px;
   }
 `;
 const TextTitle = styled("p")({
@@ -99,7 +90,6 @@ const TextTitle = styled("p")({
   marginTop: 20,
 });
 const TertiaryScreen = ({}) => {
-  const classes = useStyles();
   return (
     <Contain>
       <div
@@ -140,11 +130,11 @@ const TertiaryScreen = ({}) => {
           special abilities for your squad or towers for you to use as
           commander.
           <br />
-          <br /> 
-          Towers and enemies in Operation Safe Place have health,
-          armor, and shields, and some enemies can shoot back. As you progress
-          through the game, you can level up your towers and corresponding cards
-          permanently in your deck.
+          <br />
+          Towers and enemies in Operation Safe Place have health, armor, and
+          shields, and some enemies can shoot back. As you progress through the
+          game, you can level up your towers and corresponding cards permanently
+          in your deck.
         </Text>
       </ColumnTwo>
     </Contain>

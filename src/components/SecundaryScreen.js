@@ -18,6 +18,7 @@ const useStyles = makeStyles({
     background: "#090013",
     width: "100%",
     height: "90%",
+    padding: "40px 0 40px 0",
   },
 });
 const Contain = styled("div")({

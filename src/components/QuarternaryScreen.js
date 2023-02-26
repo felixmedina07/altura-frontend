@@ -12,7 +12,7 @@ const useStyles = makeStyles({
 });
 const Contain = styled("div")`
   width: 100%;
-  height: 100%;
+  background: #090013;
   background-image: url(${"./image/imageBack3.png"});
   background-repeat: no-repeat;
   background-size: cover;

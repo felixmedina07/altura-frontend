@@ -7,16 +7,26 @@ const Container = styled.div(() => ``);
 const Body = styled.div(
   () => `
   padding-top: 8rem;
-  background-image: url("./image/Rectangle.png");
-  background-repeat: no-repeat;
-  background-size: 100%;
-  height: 55rem;
+  
+`
+);
+
+const Background = styled.div(
+  () => `
+background-image: url("./image/Rectangle.png");
+background-repeat: no-repeat;
+background-size: 100%;
+height: 100%;
+width: 100%;
+z-index:-1;
+position: fixed;
 `
 );
 
 export const Layout = ({ children, notFooter }) => {
   return (
     <Container>
+      <Background />
       <Header /> <Body>{children}</Body> {!notFooter && <Footer />}
     </Container>
   );
