@@ -21,6 +21,7 @@ module.exports = ({ mode } = { mode: "production" }) => {
       devServer: {
         hot: true,
         open: true,
+        historyApiFallback: true,
       },
       output: {
         publicPath: "/",

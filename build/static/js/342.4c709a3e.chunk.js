@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkaltura_frontend=self.webpackChunkaltura_frontend||[]).push([[342],{2342:function(n,r,a){a.r(r);a(7313);var e=a(6417);r.default=function(){return(0,e.jsx)("div",{children:"Dashboard"})}}}]);
