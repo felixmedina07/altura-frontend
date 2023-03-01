@@ -1,19 +1,17 @@
-import React, { useState, useMemo, useEffect, useContext } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import Box from "@mui/material/Box";
 import styled from "styled-components";
 import { Layout } from "../components/Layout";
-import { dummyCards } from "../dommyData/Marketplace";
 import Card from "../components/card";
 import VanityImage1 from "../assets/vanityImage1.png";
-import TowArrow from "../assets/arrowDoble.svg";
-import Arrow from "../assets/arrowFilter.svg";
 import Deck from "../assets/deckIcons.svg";
-import DeckList from "../components/DeckList";
-import FilterByPrice from "../components/filterByPrice";
 import { OPERATION_SAVE_PLACE_API } from "../config/config";
 import Loader from "../components/loader";
 import { UserContext } from "../context/mainContext";
 import { useNavigate } from "react-router-dom";
+import BuildDeckModal from "../components/buildDeckModal";
+import CreateDeckDialog from "../components/createDeckDialog";
+import BuildDeckProvider from "../context/buildDeckContext";
 
 const Contain = styled(Box)({
   width: "100%",
@@ -109,18 +107,17 @@ const LouderContainer = styled(Box)(
 
 const CenterContainer = styled.div(
   () => `
-
+  margin-left: 10rem;
 `
 );
 
 const DeckBuilder = () => {
   const { token } = useContext(UserContext);
   const navigate = useNavigate();
-  const [filters, setFilters] = useState([]);
-  const [visibleFilter, setVisibleFilter] = useState(false);
-  const [visibleFilterByPrice, setVisibleFilterByPrice] = useState(false);
+  const [visibleFilter, setVisibleFilter] = useState(true);
   const [allCards, setCards] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [isOpenCreateDeck, setOpenCreateDeck] = useState(false);
 
   const getAllCards = async () => {
     setLoading(true);
@@ -149,36 +146,43 @@ const DeckBuilder = () => {
 
   return (
     <Layout notFooter={true}>
-      <Contain>
-        <CenterContainer>
-          <FilterContainer>
-            <ButtomContainer style={{ width: "80%", marginLeft: "13rem" }}>
-              <TextTitle>Deck Builder</TextTitle>
-              <VanityImageBarNeon component="img" src={VanityImage1} />
-            </ButtomContainer>
-            <ButtomContainer>
-              <Buttom onClick={() => setVisibleFilter((state) => !state)}>
-                <Ico src={Deck} style={{ marginRight: "0.5rem" }} />
-                <TextTitle>My Decks</TextTitle>
-              </Buttom>
-              <VanityImageBarNeon component="img" src={VanityImage1} />
-            </ButtomContainer>
-          </FilterContainer>
-          {loading && (
-            <LouderContainer>
-              <Loader isVisible={loading} />
-            </LouderContainer>
-          )}
-          <ContainerList>
-            {allCards.map((item, index) => (
-              <Card
-                key={`${index}-${item.name}-${Math.random()}`}
-                item={{ ...item, index }}
-              />
-            ))}
-          </ContainerList>
-        </CenterContainer>
-      </Contain>
+      <BuildDeckProvider>
+        <CreateDeckDialog open={isOpenCreateDeck} setOpen={setOpenCreateDeck} />
+        <Contain>
+          <CenterContainer>
+            <FilterContainer>
+              <ButtomContainer style={{ width: "80%", marginLeft: "13rem" }}>
+                <TextTitle>Deck Builder</TextTitle>
+                <VanityImageBarNeon component="img" src={VanityImage1} />
+              </ButtomContainer>
+              <ButtomContainer>
+                <Buttom onClick={() => setVisibleFilter((state) => !state)}>
+                  <Ico src={Deck} style={{ marginRight: "0.5rem" }} />
+                  <TextTitle>My Decks</TextTitle>
+                </Buttom>
+                <VanityImageBarNeon component="img" src={VanityImage1} />
+              </ButtomContainer>
+            </FilterContainer>
+            {loading && (
+              <LouderContainer>
+                <Loader isVisible={loading} />
+              </LouderContainer>
+            )}
+            <ContainerList>
+              {allCards.map((item, index) => (
+                <Card
+                  key={`${index}-${item.name}-${Math.random()}`}
+                  item={{ ...item, index }}
+                />
+              ))}
+            </ContainerList>
+          </CenterContainer>
+          <BuildDeckModal
+            visible={visibleFilter}
+            setOpenCreateDeck={setOpenCreateDeck}
+          />
+        </Contain>
+      </BuildDeckProvider>
     </Layout>
   );
 };

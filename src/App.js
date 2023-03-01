@@ -5,15 +5,6 @@ import UserProvider from "./context/mainContext";
 import MainRoutes from "./routes/mainRoutes";
 
 class App extends Component {
-  state = {
-    counter: 0,
-  };
-
-  handleClick = () => {
-    this.setState((prevState) => {
-      return { counter: prevState.counter + 1 };
-    });
-  };
   render() {
     return (
       <UserProvider>

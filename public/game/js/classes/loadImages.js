@@ -1,8 +1,8 @@
 class LoadGameImage {
   constructor() {}
 
-  async getCards() {
-    const result = await fetch(`${SERVER_URL}/card/all`, {
+  async getDummyCard() {
+    const result = await fetch(`${SERVER_URL}/card/all?name=NOOB`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -10,6 +10,20 @@ class LoadGameImage {
     });
     const cards = await result.json();
     return cards.card;
+  }
+
+  async getCards() {
+    if (!urlParams.has("token")) return;
+    const token = urlParams.get("token");
+    const result = await fetch(`${SERVER_URL}/deck/my-deck-active`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    const decks = await result.json();
+    return decks.deck.cards || [];
   }
 
   async getCardsImages() {
@@ -41,7 +55,7 @@ class LoadGameImage {
   }
 
   async loadImages() {
-    this.cards = await this.getCards();
+    this.cards = (await this.getCards()) || (await this.getDummyCard());
     await this.getCardsImages();
     const promises = [];
     let imageObject = {};

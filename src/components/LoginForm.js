@@ -100,6 +100,8 @@ const LoginForm = ({ setOpen, setOpenRegister, setOpenResetPasswordModal }) => {
       setErrors({ password: result.message });
       if (result.login) {
         const { token, userFound } = result.login;
+        sessionStorage.setItem("Token", token);
+        sessionStorage.setItem("User", JSON.stringify(userFound));
         setToken(token);
         setUser(userFound);
         setIsLogged(true);

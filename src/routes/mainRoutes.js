@@ -1,5 +1,6 @@
-import { Suspense, lazy } from "react";
+import { Suspense, lazy, useEffect, useContext } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { UserContext } from "../context/mainContext";
 
 const Login = lazy(() => import("../page/Login"));
 const Error404 = lazy(() => import("../page/Error404"));
@@ -13,6 +14,22 @@ const LearnMore = lazy(() => import("../page/LearnMore"));
 const ResetPassword = lazy(() => import("../page/ResetPassword"));
 
 const MainRoutes = () => {
+  const { setToken, setUser, setIsLogged } = useContext(UserContext);
+
+  const getUserData = async () => {
+    const Token = await sessionStorage.getItem("Token");
+    const User = await sessionStorage.getItem("User");
+    setToken(Token);
+    setUser(JSON.parse(User));
+    if (Token && User) {
+      setIsLogged(true);
+    }
+  };
+
+  useEffect(() => {
+    getUserData();
+  }, []);
+
   return (
     <BrowserRouter>
       <Suspense fallback={<div>Loading...</div>}>

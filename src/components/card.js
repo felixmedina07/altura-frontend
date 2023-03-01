@@ -1,9 +1,13 @@
 import { AddCircle } from "@mui/icons-material";
 import { IconButton } from "@mui/material";
 import Box from "@mui/material/Box";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import styled from "styled-components";
+import { BuildDeckContext } from "../context/buildDeckContext";
 import { UserContext } from "../context/mainContext";
+import CheckBox from "./checkBox";
+
+const MAXCARDS = 21;
 
 const Container = styled(Box)({
   backgroundColor: "transparent",
@@ -65,15 +69,25 @@ const ImageItem = styled("img")(
 
 const Card = ({ item, setCart, cart, isMarketplace = false }) => {
   const { token } = useContext(UserContext);
+  const { name: deckName, setCardsId, cardsId } = useContext(BuildDeckContext);
   const [hover, setHover] = useState(false);
   const [hoverAddBottom, setHoverAddBottom] = useState(false);
-  const { name, index, card, userHas } = item;
+  const { name, index, card, userHas, _id } = item;
 
   const addItemToCart = () => {
     if (cart.some((cartItem) => cartItem.card === item.card)) {
       return;
     }
     setCart((items) => [...items, item]);
+  };
+
+  const handleCheck = (state) => {
+    if (!state) {
+      setCardsId((ids) => ids.filter((id) => id !== _id));
+      return;
+    }
+    if (cardsId.length > MAXCARDS) return;
+    setCardsId((ids) => [...ids, _id]);
   };
 
   return (
@@ -83,6 +97,13 @@ const Card = ({ item, setCart, cart, isMarketplace = false }) => {
     >
       <Container>
         <Background>
+          {deckName.length > 0 && (
+            <CheckBox
+              isSelected={handleCheck}
+              maxSelect={MAXCARDS}
+              currentCount={cardsId.length}
+            />
+          )}
           <Name hover={hover}>{name}</Name>
           <Number>{`#${index}`}</Number>
           <ImageItem

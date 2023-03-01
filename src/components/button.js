@@ -24,9 +24,14 @@ const ButtonText = styled(IconButton)(
 `
 );
 
-const Button = ({ text, type, disabled = false }) => {
+const Button = ({ text, type, disabled = false, onClick = () => {} }) => {
   return (
-    <ButtonText type={type} style={{ padding: 0 }} disabled={disabled}>
+    <ButtonText
+      onClick={onClick}
+      type={type}
+      style={{ padding: 0 }}
+      disabled={disabled}
+    >
       <TextForgot>{text}</TextForgot>
     </ButtonText>
   );

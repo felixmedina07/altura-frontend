@@ -10,6 +10,8 @@ const container = document.getElementById("container");
 const currentWave = document.getElementById("currentWave");
 const ctx = canvas.getContext("2d");
 const SERVER_URL = "https://ops-defender-api.herokuapp.com/api/v1";
+const queryString = window.location.search;
+const urlParams = new URLSearchParams(queryString);
 
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;

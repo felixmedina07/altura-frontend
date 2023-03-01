@@ -282,6 +282,24 @@ const LevelsImage = {
       imageY: 1,
     },
   ],
+  NOOB: [
+    {
+      imageX: 0,
+      imageY: 1,
+    },
+    {
+      imageX: 1,
+      imageY: 1,
+    },
+    {
+      imageX: 2,
+      imageY: 1,
+    },
+    {
+      imageX: 3,
+      imageY: 1,
+    },
+  ],
   OWLS: [
     {
       imageX: 0,

@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Layout } from "../components/Layout";
 import styled from "styled-components";
 import { Box } from "@mui/material";
+import { UserContext } from "../context/mainContext";
 const Contain = styled(Box)({
   width: "100%",
   height: "100%",
@@ -174,6 +175,7 @@ const RowText = styled("div")`
   justify-content: space-around;
 `;
 const LaunchForces = ({}) => {
+  const { token } = useContext(UserContext);
   const textBoard = [
     { username: "player 1", lvl: "598", score: "10844", rank: "1" },
     { username: "player 2", lvl: "564", score: "10655", rank: "2" },
@@ -253,7 +255,7 @@ const LaunchForces = ({}) => {
             </RowText>
             <GameContainer
               dangerouslySetInnerHTML={{
-                __html: `<iframe class="iframe" src="/game" />`,
+                __html: `<iframe class="iframe" src="/game?token=${token}" />`,
               }}
             />
           </ColumnTwo>
