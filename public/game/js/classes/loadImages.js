@@ -23,7 +23,7 @@ class LoadGameImage {
       },
     });
     const decks = await result.json();
-    return decks.deck.cards || [];
+    return decks?.deck?.cards || this.getDummyCard();
   }
 
   async getCardsImages() {

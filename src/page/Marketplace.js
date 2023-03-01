@@ -149,6 +149,12 @@ const Marketplace = () => {
 
     const userCards = await userCardResult.json();
 
+    if (!userCards?.result) {
+      setLoading(false);
+      setCards(allCards.card);
+      return;
+    }
+
     const cardsFiltered = allCards.card.map((itemMarketplace) => {
       const isCard = userCards.result.cards.some((itemUser) => {
         return itemMarketplace.card === itemUser.card;

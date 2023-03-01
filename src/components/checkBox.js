@@ -7,7 +7,7 @@ const CheckedContainer = styled.img`
 `;
 
 const Container = styled.div`
-  border-radius: 40px;
+  border-radius: 100px;
   width: 20px;
   height: 20px;
   display: flex;

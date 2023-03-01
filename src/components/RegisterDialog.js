@@ -36,6 +36,7 @@ export const RegisterDialog = ({
           backgroundSize: "cover",
         },
       }}
+      disableEscapeKeyDown={true}
       open={open}
       TransitionComponent={Transition}
       keepMounted

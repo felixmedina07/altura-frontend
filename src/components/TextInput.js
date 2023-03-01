@@ -54,12 +54,17 @@ const TextInput = ({
             border: "none",
             fontSize: 12,
           },
+          autoComplete: "off",
+          form: {
+            autocomplete: "off",
+          },
         }}
         onBlur={handleBlur}
         type={type}
         name={name}
         value={text}
         onChange={setText}
+        autoComplete="off"
       />
     </Container>
   );

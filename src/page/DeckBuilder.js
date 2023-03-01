@@ -136,7 +136,7 @@ const DeckBuilder = () => {
     if (allCards.statusCode === 401) {
       navigate("/");
     }
-    setCards(allCards.result.cards);
+    setCards(allCards?.result?.cards || []);
     setLoading(false);
   };
 

@@ -67,7 +67,6 @@ const BuildDeckModal = ({ visible, setOpenCreateDeck }) => {
       },
     });
     const decks = await result.json();
-    console.log(decks);
     setDecks(decks.deck);
   };
 

@@ -48,6 +48,43 @@ const TextLink = styled("p")({
   textDecoration: "underline",
 });
 
+const TextLabel = styled("p")({
+  color: "#FFFFFF",
+  textAlign: "left",
+  fontFamily: "Montserrat-Regular",
+  fontSize: 12,
+  fontWeight: 700,
+  margin: "5px 0px",
+});
+
+const GenderOptions = styled(TextLabel)(
+  ({ enable }) => `
+  background-color: ${enable ? "#fff" : "#000"};
+  cursor: pointer;
+  border: 0.2rem solid #fff;
+  border-radius: 40px;
+  padding: 10px;
+  box-shadow: ${
+    enable
+      ? "0 0 0.2rem #fff, 0 0 0.2rem #fff, 0 0 2rem #bc13fe,0 0 0.8rem #bc13fe, 0 0 2.8rem #bc13fe, inset 0 0 1.3rem #bc13fe"
+      : ""
+  };
+`
+);
+
+const ContainerGender = styled.div`
+  width: 240px;
+`;
+
+const GenderInputContainer = styled.div`
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 100%;
+  flex-direction: row;
+  background-color: "#fff";
+`;
+
 const RegisterForm = () => {
   const [status, setStatus] = useState(undefined);
   const [loading, setLoading] = useState(false);
@@ -58,6 +95,22 @@ const RegisterForm = () => {
       errors.email = "Required";
     } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(email)) {
       errors.email = "Invalid email address";
+    }
+    return errors;
+  };
+
+  const validateBirthday = ({ birthday }) => {
+    const errors = {};
+    if (!/^.{2,}/g.test(birthday)) {
+      errors.birthday = "Required";
+    }
+    return errors;
+  };
+
+  const validateGender = ({ gender }) => {
+    const errors = {};
+    if (!/^.{2,}/g.test(gender)) {
+      errors.gender = "Required";
     }
     return errors;
   };
@@ -103,7 +156,7 @@ const RegisterForm = () => {
   };
 
   const onRegisterUser = async (
-    { userName, email, password },
+    { userName, email, password, birthday, gender },
     { setSubmitting, setErrors }
   ) => {
     setLoading(true);
@@ -113,6 +166,8 @@ const RegisterForm = () => {
         username: userName,
         email: email,
         password: password,
+        birthday: birthday,
+        gender: gender,
       }),
       headers: {
         "Content-Type": "application/json",
@@ -147,6 +202,8 @@ const RegisterForm = () => {
         email: "",
         password: "",
         verifyPassword: "",
+        birthday: "",
+        gender: "",
       }}
       validate={(values) => {
         setStatus(undefined);
@@ -158,6 +215,10 @@ const RegisterForm = () => {
         if (password.password) return password;
         const passwordValidation = validateVerifyPassword(values);
         if (passwordValidation.verifyPassword) return passwordValidation;
+        const birthday = validateBirthday(values);
+        if (birthday.birthday) return birthday;
+        const gender = validateGender(values);
+        if (gender.gender) return gender;
       }}
       onSubmit={onRegisterUser}
     >
@@ -169,11 +230,13 @@ const RegisterForm = () => {
         isSubmitting,
         errors,
         touched,
+        setFieldValue,
       }) => {
         return (
           <Form onSubmit={handleSubmit}>
             <RegisterTextInput
               title={"Username"}
+              type={"text"}
               name={"userName"}
               text={values.userName}
               handleBlur={handleBlur}
@@ -215,6 +278,44 @@ const RegisterForm = () => {
             {errors.verifyPassword && touched.verifyPassword && (
               <TextForgot>{errors.verifyPassword}</TextForgot>
             )}
+            <RegisterTextInput
+              title={"Birthday"}
+              type={"date"}
+              name={"birthday"}
+              text={values.birthday}
+              handleBlur={handleBlur}
+              setText={handleChange}
+            />
+            {errors.birthday && touched.birthday && (
+              <TextForgot>{errors.birthday}</TextForgot>
+            )}
+            <ContainerGender>
+              <TextLabel>Gender</TextLabel>
+              <GenderInputContainer>
+                <GenderOptions
+                  onClick={() => setFieldValue("gender", "Female")}
+                  enable={values.gender === "Female"}
+                >
+                  F
+                </GenderOptions>
+                <GenderOptions
+                  onClick={() => setFieldValue("gender", "Male")}
+                  enable={values.gender === "Male"}
+                >
+                  M
+                </GenderOptions>
+                <GenderOptions
+                  onClick={() => setFieldValue("gender", "Other")}
+                  enable={values.gender === "Other"}
+                >
+                  Other
+                </GenderOptions>
+              </GenderInputContainer>
+            </ContainerGender>
+            {errors.gender && touched.gender && (
+              <TextForgot>{errors.gender}</TextForgot>
+            )}
+
             <Button text={"Sign up"} type="submit" disabled={isSubmitting} />
             <Loader isVisible={loading} />
             {status === 200 && (
