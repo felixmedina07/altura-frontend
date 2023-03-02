@@ -24,6 +24,8 @@ const Container = styled.div(
 `
 );
 
+console.log('hola');
+
 const InfoContainer = styled.div(
   () => `
     display: flex;
