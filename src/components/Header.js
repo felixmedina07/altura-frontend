@@ -76,7 +76,7 @@ export const Header = () => {
   const [subMenuState, setSubMenuState] = useState(false);
   const navigate = useNavigate();
   const itemSubMenu = [
-    { name: "My Vanity", route: "vanity" },
+    { name: "My Profile", route: "vanity" },
     { name: "Deck Builder", route: "deck-builder" },
     { name: "Launch Forces", route: "launch-forces" },
     { name: "Exit", route: "Exit" },

@@ -5,7 +5,6 @@ import { useContext, useState } from "react";
 import styled from "styled-components";
 import { BuildDeckContext } from "../context/buildDeckContext";
 import { UserContext } from "../context/mainContext";
-import CheckBox from "./checkBox";
 
 const MAXCARDS = 21;
 
@@ -17,14 +16,15 @@ const Container = styled(Box)({
   alignItems: "center",
 });
 
-const Background = styled(Box)({
-  border: "3px solid #1affde",
-  background: "rgba(0, 0, 0, 0.4)",
-  boxShadow:
-    "0 0 0.1vw 0.1vw #1affde, 0 0 0.1vw 0.1vw #1affde, 0 0 1vw 0.1vw #1affde",
-  padding: "3px",
-  margin: "2px",
-});
+const Background = styled(Box)(
+  () => `
+  border: 3px solid #1affde
+  background: rgba(0, 0, 0, 0.4);
+  box-shadow:0 0 0.1vw 0.1vw #1affde, 0 0 0.1vw 0.1vw #1affde, 0 0 1vw 0.1vw #1affde;
+  padding: 3px;
+  margin: 2px;
+`
+);
 
 const Name = styled("p")(
   ({ hover }) => `
@@ -47,23 +47,29 @@ const Number = styled("p")({
 });
 
 const ItemContainer = styled(Box)(
-  () => `
+  ({ deckNameSize }) => `
     display: grid;
     place-items: "center";
     width: 100%;
     transition: 1s;
-    border: 1px solid #fff;
-    box-shadow: 0 0 0.1vw 0.1vw #fff, 0 0 0.1vw 0.1vw #fff, 0 0 1vw 0.1vw #fff;
+    border: ${deckNameSize ? "1px solid #fff" : "none"};
+    box-shadow: ${
+      deckNameSize
+        ? "0 0 0.1vw 0.1vw #fff, 0 0 0.1vw 0.1vw #fff, 0 0 1vw 0.1vw #fff"
+        : "none"
+    };
     color: #fff;
     &:hover{
         width:102%
-    }
+    };
+    backdrop-filter: blur(10px);
 `
 );
 
 const ImageItem = styled("img")(
-  () => `
+  ({ deckNameSize }) => `
         width: 100%;
+        filter: ${deckNameSize ? "" : "blur(10px)"};
     `
 );
 
@@ -73,6 +79,7 @@ const Card = ({ item, setCart, cart, isMarketplace = false }) => {
   const [hover, setHover] = useState(false);
   const [hoverAddBottom, setHoverAddBottom] = useState(false);
   const { name, index, card, userHas, _id } = item;
+  const [isSelected, setSelected] = useState(false);
 
   const addItemToCart = () => {
     if (cart.some((cartItem) => cartItem.card === item.card)) {
@@ -84,26 +91,27 @@ const Card = ({ item, setCart, cart, isMarketplace = false }) => {
   const handleCheck = (state) => {
     if (!state) {
       setCardsId((ids) => ids.filter((id) => id !== _id));
-      return;
+      return true;
     }
-    if (cardsId.length > MAXCARDS) return;
+    if (cardsId.length > MAXCARDS) return false;
     setCardsId((ids) => [...ids, _id]);
+    return true;
   };
 
   return (
     <ItemContainer
       onMouseEnter={() => setHover(true)}
       onMouseLeave={() => setHover(false)}
+      onClick={() => {
+        if (deckName.length === 0) return;
+        const result = handleCheck(!isSelected);
+        if (!result) return;
+        setSelected(!isSelected);
+      }}
+      deckNameSize={isSelected || deckName.length === 0}
     >
       <Container>
         <Background>
-          {deckName.length > 0 && (
-            <CheckBox
-              isSelected={handleCheck}
-              maxSelect={MAXCARDS}
-              currentCount={cardsId.length}
-            />
-          )}
           <Name hover={hover}>{name}</Name>
           <Number>{`#${index}`}</Number>
           <ImageItem
@@ -111,6 +119,7 @@ const Card = ({ item, setCart, cart, isMarketplace = false }) => {
             loading="lazy"
             src={`${card}`}
             srcSet={`${card}`}
+            deckNameSize={!isSelected || deckName.length === 0}
           />
           {isMarketplace && !userHas && token && (
             <IconButton sx={{ color: "#fff" }} onClick={addItemToCart}>

@@ -10,6 +10,7 @@ const container = document.getElementById("container");
 const currentWave = document.getElementById("currentWave");
 const ctx = canvas.getContext("2d");
 const SERVER_URL = "https://ops-defender-api.herokuapp.com/api/v1";
+
 const queryString = window.location.search;
 const urlParams = new URLSearchParams(queryString);
 
@@ -392,8 +393,10 @@ Images.loadImages()
             userResources.heart.current >= userResources.heart.max ||
             (userResources.coin < 5 && buildings.length <= 0)
           ) {
-            message.innerHTML = "TRY AGAIN!";
-            message.style.display = "flex";
+            userResources.sendScore().then(() => {
+              message.innerHTML = "TRY AGAIN!";
+              message.style.display = "flex";
+            });
             cancelAnimationFrame(animationId);
           }
         }
