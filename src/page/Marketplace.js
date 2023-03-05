@@ -187,7 +187,9 @@ const Marketplace = () => {
 
     const deleteDuplicate = new Set(data);
 
-    return [...deleteDuplicate];
+    console.log(...deleteDuplicate);
+
+    return [];
   }, [filters, allCards]);
 
   return (

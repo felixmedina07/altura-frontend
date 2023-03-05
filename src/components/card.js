@@ -52,9 +52,9 @@ const ItemContainer = styled(Box)(
     place-items: "center";
     width: 100%;
     transition: 1s;
-    border: ${decknamesize ? "1px solid #fff" : "none"};
+    border: ${decknamesize === "true" ? "1px solid #fff" : "none"};
     box-shadow: ${
-      decknamesize
+      decknamesize === "true"
         ? "0 0 0.1vw 0.1vw #fff, 0 0 0.1vw 0.1vw #fff, 0 0 1vw 0.1vw #fff"
         : "none"
     };
@@ -69,7 +69,7 @@ const ItemContainer = styled(Box)(
 const ImageItem = styled("img")(
   ({ decknamesize }) => `
         width: 100%;
-        filter: ${decknamesize ? "" : "blur(10px)"};
+        filter: ${decknamesize === "true" ? "" : "blur(10px)"};
     `
 );
 
