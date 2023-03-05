@@ -3,7 +3,8 @@ import { Layout } from "../components/Layout";
 import styled from "styled-components";
 import { Box } from "@mui/material";
 import { UserContext } from "../context/mainContext";
-import { getScore } from "../request/score";
+import useScore from "../request/score";
+
 const Contain = styled(Box)({
   width: "100%",
   height: "100%",
@@ -179,12 +180,12 @@ const RowText = styled("div")`
 const LaunchForces = ({}) => {
   const { token } = useContext(UserContext);
   const [scores, setScore] = useState([]);
+  const score = useScore();
 
   useEffect(() => {
-    const fetchScore = () => {
-      getScore(token).then((e) => {
-        setScore(e);
-      });
+    const fetchScore = async () => {
+      const scores = await score.getAllScore();
+      setScore(scores);
     };
     fetchScore();
     const myInterval = setInterval(fetchScore, 10000);

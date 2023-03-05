@@ -3,7 +3,6 @@ import TextInput from "./TextInput";
 import styled from "styled-components";
 import { useContext, useState } from "react";
 import IconButton from "@mui/material/IconButton";
-import ButtonLoginModal from "../assets/buttonLoginModal.png";
 import Box from "@mui/material/Box";
 import BarLight from "../assets/BarLight.svg";
 import FACEBOOK from "../assets/FACEBOOK.svg";
@@ -11,10 +10,10 @@ import METAMASK from "../assets/METAMASK.svg";
 import GOOGLE from "../assets/GOOGLE.svg";
 import ALTURA from "../assets/ALTURA.svg";
 import LogoDefender from "../assets/logoDefender.png";
-import { OPERATION_SAVE_PLACE_API } from "../config/config";
 import { UserContext } from "../context/mainContext";
 import Loader from "./loader";
 import Button from "./button";
+import useUser from "../request/user";
 
 const Form = styled.form({
   display: "flex",
@@ -61,6 +60,7 @@ const TextTitle = styled("p")({
 const LoginForm = ({ setOpen, setOpenRegister, setOpenResetPasswordModal }) => {
   const { setIsLogged, setToken, setUser } = useContext(UserContext);
   const [loading, setLoading] = useState(false);
+  const user = useUser();
 
   const handleGoToForgetPassword = () => {
     setOpen(false);
@@ -86,22 +86,11 @@ const LoginForm = ({ setOpen, setOpenRegister, setOpenResetPasswordModal }) => {
       return;
     }
     try {
-      const isLogin = await fetch(`${OPERATION_SAVE_PLACE_API}/auth/login`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          emailOrUsername: userName,
-          password: password,
-        }),
-      });
-      const result = await isLogin.json();
+      const result = await user.onUserLogin({ userName, password });
       setErrors({ password: result.message });
       if (result.login) {
         const { token, userFound } = result.login;
         sessionStorage.setItem("Token", token);
-        sessionStorage.setItem("User", JSON.stringify(userFound));
         setToken(token);
         setUser(userFound);
         setIsLogged(true);

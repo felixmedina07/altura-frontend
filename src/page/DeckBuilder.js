@@ -1,17 +1,16 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect } from "react";
 import Box from "@mui/material/Box";
 import styled from "styled-components";
 import { Layout } from "../components/Layout";
 import Card from "../components/card";
 import VanityImage1 from "../assets/vanityImage1.png";
 import Deck from "../assets/deckIcons.svg";
-import { OPERATION_SAVE_PLACE_API } from "../config/config";
 import Loader from "../components/loader";
-import { UserContext } from "../context/mainContext";
 import { useNavigate } from "react-router-dom";
 import BuildDeckModal from "../components/buildDeckModal";
 import CreateDeckDialog from "../components/createDeckDialog";
 import BuildDeckProvider from "../context/buildDeckContext";
+import useCard from "../request/card";
 
 const Contain = styled(Box)({
   width: "100%",
@@ -112,27 +111,16 @@ const CenterContainer = styled.div(
 );
 
 const DeckBuilder = () => {
-  const { token } = useContext(UserContext);
   const navigate = useNavigate();
   const [visibleFilter, setVisibleFilter] = useState(true);
   const [allCards, setCards] = useState([]);
   const [loading, setLoading] = useState(false);
   const [isOpenCreateDeck, setOpenCreateDeck] = useState(false);
+  const card = useCard();
 
   const getAllCards = async () => {
     setLoading(true);
-    const result = await fetch(
-      `${OPERATION_SAVE_PLACE_API}/card-users/my-cards`,
-      {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
-
-    const allCards = await result.json();
+    const allCards = await card.onGetUserCards();
     if (allCards.statusCode === 401) {
       navigate("/");
     }

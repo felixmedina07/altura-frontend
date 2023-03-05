@@ -2,8 +2,8 @@ import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import styled from "styled-components";
 import { Layout } from "../components/Layout";
-import { OPERATION_SAVE_PLACE_API } from "../config/config";
 import Box from "@mui/material/Box";
+import useUser from "../request/user";
 
 const TextTitle = styled("p")`
   color: #ffffff;
@@ -36,27 +36,17 @@ const Contain = styled(Box)({
 const VerifyCode = () => {
   const [searchParams] = useSearchParams();
   const [response, setResponse] = useState();
-
-  const verifyCode = async (email, code) => {
-    const verify = await fetch(`${OPERATION_SAVE_PLACE_API}/auth/verify-code`, {
-      method: "POST",
-      body: JSON.stringify({
-        email: email,
-        code: parseInt(code),
-      }),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-
-    setResponse((await verify.json()).message);
-  };
+  const user = useUser();
 
   useEffect(() => {
-    const email = searchParams.get("email");
-    const code = searchParams.get("code");
+    const verify = async () => {
+      const email = searchParams.get("email");
+      const code = searchParams.get("code");
+      const result = await user.onVerifyCode({ email, code });
+      setResponse(result);
+    };
 
-    verifyCode(email, code);
+    verify();
   }, []);
 
   return (

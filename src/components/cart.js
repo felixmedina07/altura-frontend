@@ -4,11 +4,11 @@ import {
   ExpandLess,
   ExpandMore,
 } from "@mui/icons-material";
-import { Button, IconButton } from "@mui/material";
+import { IconButton } from "@mui/material";
 import { useContext, useRef, useState } from "react";
 import styled from "styled-components";
-import { OPERATION_SAVE_PLACE_API } from "../config/config";
 import { UserContext } from "../context/mainContext";
+import useCard from "../request/card";
 
 const Container = styled.div(
   () => `
@@ -86,9 +86,10 @@ const PreviewCardImage = styled.img(
 const PreviewCardContainer = styled.div(() => ``);
 
 const Cart = ({ cart, setCart, setLoading, getAllCards }) => {
-  const { token, isLogged } = useContext(UserContext);
+  const { isLogged } = useContext(UserContext);
   const [open, setOpen] = useState(false);
   const [success, setSuccess] = useState(null);
+  const cards = useCard();
   const refCards = useRef();
 
   const deleteCard = (cart) => {
@@ -100,17 +101,7 @@ const Cart = ({ cart, setCart, setLoading, getAllCards }) => {
   const onBuyItems = async () => {
     setLoading(true);
     const ids = cart.map((item) => item._id);
-    const result = await fetch(`${OPERATION_SAVE_PLACE_API}/card-users`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-      body: JSON.stringify({
-        cards: ids,
-      }),
-    });
-    const isSave = await result.json();
+    const isSave = await cards.onBuyCards({ ids });
     if (isSave.statusCode === 201) {
       setCart([]);
       setSuccess(true);

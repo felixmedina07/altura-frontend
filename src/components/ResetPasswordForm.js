@@ -1,10 +1,11 @@
 import { Formik } from "formik";
 import styled from "styled-components";
 import TextInput from "./TextInput";
-import { OPERATION_SAVE_PLACE_API } from "../config/config";
 import { useState } from "react";
 import Loader from "./loader";
 import Button from "./button";
+import useUser from "../request/user";
+import { useNavigate } from "react-router-dom";
 
 const Form = styled.form({
   display: "flex",
@@ -24,6 +25,8 @@ const TextForgot = styled("p")({
 
 const ResetPasswordForm = () => {
   const [loading, setLoading] = useState(false);
+  const user = useUser();
+
   const validateEmail = ({ email }) => {
     const errors = {};
     if (!email) {
@@ -36,19 +39,7 @@ const ResetPasswordForm = () => {
 
   const onResetPassword = async ({ email }, { setSubmitting, setErrors }) => {
     setLoading(true);
-    const isSend = await fetch(
-      `${OPERATION_SAVE_PLACE_API}/auth/send-token-recovery`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          email,
-        }),
-      }
-    );
-    const result = await isSend.json();
+    const result = await user.onSendTokenRecovery({ email });
     setErrors({ email: result.message });
     setSubmitting(false);
     setLoading(false);

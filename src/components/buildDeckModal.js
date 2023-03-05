@@ -7,7 +7,7 @@ import { BuildDeckContext } from "../context/buildDeckContext";
 import { UserContext } from "../context/mainContext";
 import { Cancel, CheckCircle } from "@mui/icons-material";
 import ModalDialog from "./modalDialog";
-import { deleteDeck, getDecks, saveDeck } from "../request/deck";
+import useDeck from "../request/deck";
 
 const Container = styled.div``;
 
@@ -62,33 +62,35 @@ const BuildDeckModal = ({ visible, setOpenCreateDeck }) => {
   const [decks, setDecks] = useState([]);
   const [openModal, setOpenModal] = useState(false);
   const [deleteId, setDeleteId] = useState();
+  const deck = useDeck();
 
   const openDeleteDialog = (id) => {
     setDeleteId(id);
     setOpenModal(true);
   };
 
-  const onDeleteDeck = async () => {
-    setOpenModal(false);
-    await deleteDeck(deleteId, token);
-    const decks = await getDecks(token);
+  const onSetDeck = async () => {
+    const decks = await deck.getAllUserDecks();
     setDecks(decks);
   };
 
+  const onDeleteDeck = async () => {
+    setOpenModal(false);
+    await deck.deleteUserDeckById(deleteId);
+    await onSetDeck();
+  };
+
   useEffect(() => {
-    getDecks(token).then((result) => {
-      setDecks(result);
-    });
+    onSetDeck();
   }, []);
 
   const handleSaveDeck = async () => {
-    const result = await saveDeck(token, { cardsId: cardsId, name: name });
+    const result = await deck.saveUserDeck({ cardsId: cardsId, name: name });
     if (result.statusCode === 201) {
       setCardsId([]);
       setName("");
       setStatus(true);
-      const decks = await getDecks(token);
-      setDecks(decks);
+      await onSetDeck();
       return;
     }
     setStatus(false);
@@ -125,9 +127,8 @@ const BuildDeckModal = ({ visible, setOpenCreateDeck }) => {
           decks.map(({ name, cards, _id, statusDeck }, index) => {
             return (
               <DeckItem
-                token={token}
                 key={`${index}-${Math.random()}`}
-                refreshItems={() => getDecks(token).then((e) => setDecks(e))}
+                refreshItems={onSetDeck}
                 item={{
                   title: name,
                   count: cards.length,

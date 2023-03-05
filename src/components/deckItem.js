@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import Deck from "../assets/deckIcons.svg";
 import Remove from "../assets/Remove.svg";
-import { activeDeck } from "../request/deck";
+import useDeck from "../request/deck";
 
 const Container = styled.div(
   ({ statusDeck }) => `
@@ -65,13 +65,13 @@ const DeckItem = ({
   item = { title: "", count: 0 },
   setOpenModal,
   refreshItems,
-  token,
 }) => {
   const { title, count, id, statusDeck } = item;
+  const deck = useDeck();
 
   const OnActiveDeck = async () => {
-    await activeDeck(token, id);
-    refreshItems();
+    await deck.activeUserDeck(id);
+    await refreshItems();
   };
 
   return (

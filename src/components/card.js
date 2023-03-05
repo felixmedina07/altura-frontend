@@ -47,14 +47,14 @@ const Number = styled("p")({
 });
 
 const ItemContainer = styled(Box)(
-  ({ deckNameSize }) => `
+  ({ decknamesize }) => `
     display: grid;
     place-items: "center";
     width: 100%;
     transition: 1s;
-    border: ${deckNameSize ? "1px solid #fff" : "none"};
+    border: ${decknamesize ? "1px solid #fff" : "none"};
     box-shadow: ${
-      deckNameSize
+      decknamesize
         ? "0 0 0.1vw 0.1vw #fff, 0 0 0.1vw 0.1vw #fff, 0 0 1vw 0.1vw #fff"
         : "none"
     };
@@ -67,9 +67,9 @@ const ItemContainer = styled(Box)(
 );
 
 const ImageItem = styled("img")(
-  ({ deckNameSize }) => `
+  ({ decknamesize }) => `
         width: 100%;
-        filter: ${deckNameSize ? "" : "blur(10px)"};
+        filter: ${decknamesize ? "" : "blur(10px)"};
     `
 );
 
@@ -108,7 +108,7 @@ const Card = ({ item, setCart, cart, isMarketplace = false }) => {
         if (!result) return;
         setSelected(!isSelected);
       }}
-      deckNameSize={isSelected || deckName.length === 0}
+      decknamesize={`${isSelected || deckName.length === 0}`}
     >
       <Container>
         <Background>
@@ -119,7 +119,7 @@ const Card = ({ item, setCart, cart, isMarketplace = false }) => {
             loading="lazy"
             src={`${card}`}
             srcSet={`${card}`}
-            deckNameSize={!isSelected || deckName.length === 0}
+            decknamesize={`${!isSelected || deckName.length === 0}`}
           />
           {isMarketplace && !userHas && token && (
             <IconButton sx={{ color: "#fff" }} onClick={addItemToCart}>

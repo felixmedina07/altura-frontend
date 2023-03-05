@@ -95,6 +95,7 @@ export const Header = () => {
       setIsLogged(false);
       setUser(null);
       setToken(null);
+      sessionStorage.removeItem("Token");
     }
   };
 

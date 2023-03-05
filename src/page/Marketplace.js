@@ -8,10 +8,10 @@ import TowArrow from "../assets/arrowDoble.svg";
 import Arrow from "../assets/arrowFilter.svg";
 import FilterByType from "../components/filterByType";
 import FilterByPrice from "../components/filterByPrice";
-import { OPERATION_SAVE_PLACE_API } from "../config/config";
 import Loader from "../components/loader";
 import Cart from "../components/cart";
 import { UserContext } from "../context/mainContext";
+import useCard from "../request/card";
 
 const Contain = styled(Box)({
   width: "100%",
@@ -111,51 +111,35 @@ const LouderContainer = styled(Box)(
 );
 
 const Marketplace = () => {
-  const { token } = useContext(UserContext);
+  const { isLogged } = useContext(UserContext);
   const [filters, setFilters] = useState([]);
   const [visibleFilter, setVisibleFilter] = useState(false);
   const [visibleFilterByPrice, setVisibleFilterByPrice] = useState(false);
   const [allCards, setCards] = useState([]);
   const [loading, setLoading] = useState(false);
   const [cart, setCart] = useState([]);
+  const card = useCard();
 
   const getAllCards = async () => {
     setLoading(true);
-    const result = await fetch(`${OPERATION_SAVE_PLACE_API}/card/all`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
 
-    const allCards = await result.json();
+    const marketPlaceCards = await card.onGetAllCards();
 
-    if (!token) {
-      setCards(allCards.card);
+    if (!isLogged) {
+      setCards(marketPlaceCards?.card);
       setLoading(false);
       return;
     }
 
-    const userCardResult = await fetch(
-      `${OPERATION_SAVE_PLACE_API}/card-users/my-cards`,
-      {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
-
-    const userCards = await userCardResult.json();
+    const userCards = await card.onGetUserCards();
 
     if (!userCards?.result) {
       setLoading(false);
-      setCards(allCards.card);
+      setCards(userCards.card);
       return;
     }
 
-    const cardsFiltered = allCards.card.map((itemMarketplace) => {
+    const cardsFiltered = marketPlaceCards.card.map((itemMarketplace) => {
       const isCard = userCards.result.cards.some((itemUser) => {
         return itemMarketplace.card === itemUser.card;
       });
@@ -171,7 +155,7 @@ const Marketplace = () => {
 
   useEffect(() => {
     getAllCards();
-  }, [token]);
+  }, [isLogged]);
 
   const cardsFiltered = useMemo(() => {
     if (filters.length < 1) {

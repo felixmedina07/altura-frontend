@@ -1,6 +1,7 @@
 import { Suspense, lazy, useEffect, useContext } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { UserContext } from "../context/mainContext";
+import useUser from "../request/user";
 
 const Login = lazy(() => import("../page/Login"));
 const Error404 = lazy(() => import("../page/Error404"));
@@ -15,13 +16,14 @@ const ResetPassword = lazy(() => import("../page/ResetPassword"));
 
 const MainRoutes = () => {
   const { setToken, setUser, setIsLogged } = useContext(UserContext);
+  const user = useUser();
 
   const getUserData = async () => {
     const Token = await sessionStorage.getItem("Token");
-    const User = await sessionStorage.getItem("User");
     setToken(Token);
-    setUser(JSON.parse(User));
-    if (Token && User) {
+    if (Token) {
+      const info = await user.onGetUserInfo(Token);
+      setUser(info.result);
       setIsLogged(true);
     }
   };

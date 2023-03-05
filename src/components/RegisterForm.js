@@ -4,10 +4,10 @@ import styled from "styled-components";
 import IconButton from "@mui/material/IconButton";
 import Box from "@mui/material/Box";
 import BarLight from "../assets/BarLight.svg";
-import { OPERATION_SAVE_PLACE_API } from "../config/config";
 import { useState } from "react";
 import Loader from "./loader";
 import Button from "./button";
+import useUser from "../request/user";
 
 const TextForgot = styled("p")({
   color: "#FFFFFF",
@@ -88,6 +88,7 @@ const GenderInputContainer = styled.div`
 const RegisterForm = () => {
   const [status, setStatus] = useState(undefined);
   const [loading, setLoading] = useState(false);
+  const user = useUser();
 
   const validateEmail = ({ email }) => {
     const errors = {};
@@ -160,38 +161,22 @@ const RegisterForm = () => {
     { setSubmitting, setErrors }
   ) => {
     setLoading(true);
-    const isRegistered = await fetch(`${OPERATION_SAVE_PLACE_API}/auth`, {
-      method: "POST",
-      body: JSON.stringify({
-        username: userName,
-        email: email,
-        password: password,
-        birthday: birthday,
-        gender: gender,
-      }),
-      headers: {
-        "Content-Type": "application/json",
-      },
+    const result = await user.onRegisterUser({
+      userName,
+      email,
+      password,
+      birthday,
+      gender,
     });
-    const result = await isRegistered.json();
     setErrors({ verifyPassword: result.message });
-    setStatus(isRegistered.status);
+    setStatus(result.statusCode);
     setSubmitting(false);
     setLoading(false);
   };
 
   const onResendEmail = async (email) => {
     setLoading(true);
-    await fetch(`${OPERATION_SAVE_PLACE_API}/auth/resend-email`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        email,
-      }),
-    });
-
+    await user.onResendEmail({ email });
     setLoading(false);
   };
 

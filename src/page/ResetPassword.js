@@ -5,12 +5,11 @@ import { Formik } from "formik";
 import TextInput from "../components/TextInput";
 import Button from "../components/button";
 import { useSearchParams } from "react-router-dom";
-import { OPERATION_SAVE_PLACE_API } from "../config/config";
 import { useState } from "react";
 import Loader from "../components/loader";
+import useUser from "../request/user";
 
 const Contain = styled(Box)({
-  backgroundImage: `url(${"./image/Rectangle.png"})`,
   width: "100%",
   height: "100%",
   backgroundRepeat: "no-repeat",
@@ -41,29 +40,17 @@ const TextForgot = styled("p")({
 
 const ResetPassword = () => {
   const [searchParams] = useSearchParams();
-
   const [loading, setLoading] = useState(false);
+  const user = useUser();
 
-  const handleSavePassword = async (values, { setSubmitting, setErrors }) => {
+  const handleSavePassword = async (
+    { password },
+    { setSubmitting, setErrors }
+  ) => {
     setLoading(true);
     const token = searchParams.get("token");
-    const isUpdatePassword = await fetch(
-      `${OPERATION_SAVE_PLACE_API}/auth/recovery-password`,
-      {
-        withCredentials: true,
-        headers: {
-          Authorization: `Bearer ${token}`,
-          "X-FP-API-KEY": "iphone", //it can be iPhone or your any other attribute
-          "Content-Type": "application/json",
-        },
-        method: "POST",
-        body: JSON.stringify({
-          newPassword: values.password,
-        }),
-      }
-    );
-    const resutl = await isUpdatePassword.json();
-    setErrors({ verifyPassword: resutl.message });
+    const result = await user.onResetPassword(token, { password });
+    setErrors({ verifyPassword: result.message });
     setSubmitting(false);
     setLoading(false);
   };
