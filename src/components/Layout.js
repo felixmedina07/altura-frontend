@@ -4,12 +4,10 @@ import { Header } from "./Header";
 import styled from "styled-components";
 
 const Container = styled.div(() => ``);
-const Body = styled.div(
-  () => `
+const Body = styled.div`
   padding-top: 8rem;
-  
-`
-);
+  padding-bottom: 70px;
+`;
 
 const Background = styled.div(
   () => `
