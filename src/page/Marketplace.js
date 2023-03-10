@@ -149,7 +149,7 @@ const Marketplace = () => {
       return { ...itemMarketplace, userHas: false };
     });
 
-    setCards(cardsFiltered);
+    setCards(cardsFiltered || []);
     setLoading(false);
   };
 
