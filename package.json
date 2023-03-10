@@ -24,6 +24,7 @@
   "scripts": {
     "start": "node server.js",
     "build": "npm run prod",
+    "buildReact": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "webpack": "webpack",
