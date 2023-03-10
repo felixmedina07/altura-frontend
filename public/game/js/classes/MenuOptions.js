@@ -20,6 +20,14 @@ class MenuOptions extends Sprite {
         maxY: 1,
       },
     });
+
+    this.acceptModal = new Sprite({
+      imageSrc: ImagesLoded.acceptModal,
+      frames: {
+        maxX: 2,
+        maxY: 1,
+      },
+    });
   }
 
   rePotition() {
@@ -31,6 +39,19 @@ class MenuOptions extends Sprite {
       x: centerCanvas.width - this.resize(200, "width"),
       y: centerCanvas.height - this.resize(260, "height"),
     };
+  }
+
+  drawAcceptModal() {
+    if (isOpenMenuOptions && this.optionSelected === "acceptModal") {
+      this.acceptModal.drawBySegment(
+        { imageX: 0, imageY: 0 },
+        {
+          x: centerCanvas.width - this.resize(400, "width"),
+          y: centerCanvas.height - this.resize(150, "height"),
+        },
+        { width: this.resize(800, "width"), height: this.resize(300, "height") }
+      );
+    }
   }
 
   drawSelector() {
@@ -223,7 +244,7 @@ class MenuOptions extends Sprite {
             break;
           }
           case 1: {
-            location.reload();
+            this.optionSelected = "acceptModal";
             break;
           }
           case 2: {
@@ -274,6 +295,40 @@ class MenuOptions extends Sprite {
           }
         );
         if (closeClicked) {
+          this.optionSelected = "none";
+        }
+      }
+      if (this.optionSelected === "acceptModal") {
+        const y = this.resize(40, "height");
+        const height = this.resize(40, "height");
+        const width = this.resize(120, "width");
+        const closeClickedYes = super.click(
+          client,
+          {
+            x: centerCanvas.width - this.resize(195, "width"),
+            y: centerCanvas.height + y,
+          },
+          {
+            width: width,
+            height: height,
+          }
+        );
+        if (closeClickedYes) {
+          location.reload();
+          return;
+        }
+        const closeClickedNo = super.click(
+          client,
+          {
+            x: centerCanvas.width + this.resize(80, "width"),
+            y: centerCanvas.height + y,
+          },
+          {
+            width: width,
+            height: height,
+          }
+        );
+        if (closeClickedYes || closeClickedNo) {
           this.optionSelected = "none";
         }
       }

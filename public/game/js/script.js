@@ -436,6 +436,7 @@ Images.loadImages()
       showCard.drawBigImage();
       menuOptions.draw();
       menuOptions.drawSelector();
+      menuOptions.drawAcceptModal();
       frame++;
     };
 

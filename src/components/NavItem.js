@@ -11,7 +11,7 @@ const TextMenuNav = styled("p")({
   fontFamily: "Genesis",
   fontSize: 14,
   fontWeight: 400,
-  marginTop:16
+  marginTop: 16,
 });
 
 const SubTextMenuNav = styled("p")({
@@ -21,15 +21,15 @@ const SubTextMenuNav = styled("p")({
   fontFamily: "Genesis",
   fontSize: 14,
   fontWeight: 400,
-  opacity:0.8,
+  opacity: 0.8,
   width: 200,
   height: 14,
   paddingLeft: 5,
-  paddingTop:2,
+  paddingTop: 2,
   "&:hover": {
     background:
       "linear-gradient(90deg, rgba(26, 255, 222, 0.5) 0%, rgba(26, 255, 222, 0) 100%);",
-      paddingBottom:2,
+    paddingBottom: 2,
   },
 });
 
@@ -56,7 +56,7 @@ export const NavItem = ({ name, subMenu, route }) => {
       alignItems: "center",
       alignSelf: "center",
       justifyContent: "center",
-      backgroundRepeat:'no-repeat',
+      backgroundRepeat: "no-repeat",
       height: 60.3,
       width: 161.4,
       backgroundImage: `url(${"./image/btnoff.png"})`,
@@ -68,7 +68,7 @@ export const NavItem = ({ name, subMenu, route }) => {
       alignItems: "center",
       alignSelf: "center",
       justifyContent: "center",
-      backgroundRepeat:'no-repeat',
+      backgroundRepeat: "no-repeat",
       height: 55.3,
       width: 161.4,
       backgroundImage: `url(${"./image/btnon.png"})`,
@@ -91,34 +91,34 @@ export const NavItem = ({ name, subMenu, route }) => {
       fontSize: 18,
       fontWeight: 700,
     },
-    containNav:{
-    marginTop:7
-    }
+    containNav: {
+      marginTop: 7,
+    },
   });
   const classes = useStyles();
   const [subMenuState, setSubMenuState] = useState(false);
   const [itemNavStatus, setItemNavStatus] = useState(false);
-  const handleNavigate = (name,route) => {
-    if(route){
-      if(name === "Home"){
+  const handleNavigate = (name, route) => {
+    if (route) {
+      if (name === "Home") {
         navigate("/");
       }
-      if(name === "Marketplace"){
+      if (name === "Marketplace") {
         navigate("/marketplace");
       }
-      if(name === "Learn More"){
-        navigate("/learn-more")
+      if (name === "Learn More") {
+        navigate("/learn-more");
       }
     }
     return;
-  }
+  };
   return (
     <div className={classes.containNav}>
       {!subMenu && (
         <Box
           component="div"
           className={itemNavStatus ? classes.itemMenuAct : classes.itemMenu}
-          onClick={() => handleNavigate(name, route) }
+          onClick={() => handleNavigate(name, route)}
           onMouseEnter={() => {
             setItemNavStatus(true);
           }}
@@ -157,8 +157,12 @@ export const NavItem = ({ name, subMenu, route }) => {
                   marginTop: 25,
                 }}
               >
-                {itemSubMenu.map((item) => (
-                  <SubTextMenuNav key={item.name}>{item.name}</SubTextMenuNav>
+                {itemSubMenu.map((item, index) => (
+                  <SubTextMenuNav
+                    key={`${item.name}-${Math.random() * index}-${index}`}
+                  >
+                    {item.name}
+                  </SubTextMenuNav>
                 ))}
               </div>
             </Box>

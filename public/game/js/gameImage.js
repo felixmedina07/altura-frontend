@@ -243,6 +243,10 @@ const gameImagesNames = [
     link: "img/LED-IZQUIERDO.png",
     name: "ledLeft",
   },
+  {
+    link: "img/game-interface-YES-OR-NO.png",
+    name: "acceptModal",
+  },
 ];
 
 const LevelsImage = {

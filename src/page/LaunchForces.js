@@ -218,6 +218,9 @@ const LaunchForces = ({}) => {
             <div style={{ position: "relative" }}>
               {scores.map((item, index) => (
                 <BackgroundContentGradient
+                  key={`${index}-${item.user.username}-${
+                    Math.random() * index
+                  }`}
                   hover={index + 1 === 10 ? true : false}
                 >
                   <RowContentTextBoard hover={index + 1 === 10 ? true : false}>

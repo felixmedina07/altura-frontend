@@ -155,7 +155,7 @@ const Marketplace = () => {
 
   useEffect(() => {
     getAllCards();
-  }, [token, isLogged]);
+  }, [token]);
 
   const cardsFiltered = useMemo(() => {
     if (filters.length < 1) {
