@@ -111,7 +111,7 @@ const LouderContainer = styled(Box)(
 );
 
 const Marketplace = () => {
-  const { isLogged } = useContext(UserContext);
+  const { isLogged, token } = useContext(UserContext);
   const [filters, setFilters] = useState([]);
   const [visibleFilter, setVisibleFilter] = useState(false);
   const [visibleFilterByPrice, setVisibleFilterByPrice] = useState(false);
@@ -155,7 +155,7 @@ const Marketplace = () => {
 
   useEffect(() => {
     getAllCards();
-  }, [isLogged]);
+  }, [token, isLogged]);
 
   const cardsFiltered = useMemo(() => {
     if (filters.length < 1) {
@@ -224,9 +224,9 @@ const Marketplace = () => {
           )}
           {!loading && (
             <ContainerList>
-              {cardsFiltered.map((item, index) => (
+              {cardsFiltered?.map((item, index) => (
                 <Card
-                  key={`${index}-${item.name}-${Math.random()}`}
+                  key={`${index}-${item.name}-${item.subName}-${Math.random()}`}
                   item={{ ...item, index }}
                   setCart={setCart}
                   cart={cart}

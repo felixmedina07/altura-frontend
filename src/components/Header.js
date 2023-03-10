@@ -114,31 +114,29 @@ export const Header = () => {
   const classes = useStyles();
   return (
     <div className={classes.contain}>
-      {!isLogged && (
-        <>
-          <LoginDialog
-            loginState={loginState}
-            setLoginState={setLoginState}
-            open={openModal}
-            setOpen={setOpenModal}
-            setOpenRegister={setOpenModalRegister}
-            handleClose={handleClose}
-            setOpenResetPasswordModal={setOpenResetPasswordModal}
-          />
-          <RegisterDialog
-            open={openModalRegister}
-            setOpen={setOpenModalRegister}
-            setOpenLogin={setOpenModal}
-            handleCloseRegister={handleCloseRegister}
-          />
-          <ResetPasswordDialog
-            open={openResetPasswordModal}
-            setOpen={setOpenResetPasswordModal}
-            setOpenLogin={setOpenModal}
-            handleClose={handleCloseResetPassword}
-          />
-        </>
-      )}
+      <>
+        <LoginDialog
+          loginState={loginState}
+          setLoginState={setLoginState}
+          open={openModal}
+          setOpen={setOpenModal}
+          setOpenRegister={setOpenModalRegister}
+          handleClose={handleClose}
+          setOpenResetPasswordModal={setOpenResetPasswordModal}
+        />
+        <RegisterDialog
+          open={openModalRegister}
+          setOpen={setOpenModalRegister}
+          setOpenLogin={setOpenModal}
+          handleCloseRegister={handleCloseRegister}
+        />
+        <ResetPasswordDialog
+          open={openResetPasswordModal}
+          setOpen={setOpenResetPasswordModal}
+          setOpenLogin={setOpenModal}
+          handleClose={handleCloseResetPassword}
+        />
+      </>
 
       <Box
         component="img"
