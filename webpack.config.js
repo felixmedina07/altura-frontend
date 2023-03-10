@@ -21,13 +21,14 @@ module.exports = ({ mode } = { mode: "production" }) => {
   const finalPath = fs.existsSync(envPath) ? envPath : basePath;
 
   // Set the path parameter in the dotenv config
-  const fileEnv = dotenv.config({ path: finalPath }).parsed || dotenv.config();
-
+  const fileEnv = dotenv.config({ path: finalPath }).parsed;
   // reduce it to a nice object, the same as before (but with the variables from the file)
   const envKeys = Object.keys(fileEnv).reduce((prev, next) => {
     prev[`process.env.${next}`] = JSON.stringify(fileEnv[next]);
     return prev;
   }, {});
+
+  console.log(envKeys);
 
   return merge(
     {
