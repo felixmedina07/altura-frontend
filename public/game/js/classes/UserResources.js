@@ -57,8 +57,23 @@ class UserResources {
         damageTaken: this.heart.current,
       }),
     });
-    const decks = await result.json();
-    console.log(decks);
+    return await result.json();
+  }
+
+  setStatsData(item) {
+    if (item.id === "totalKills") {
+      item.innerHTML = this.score;
+      return;
+    }
+    if (item.id === "maxLevel") {
+      item.innerHTML = this.level + 1;
+      return;
+    }
+    if (item.id === "defeatedBosses") {
+      item.innerHTML = this.killBosses;
+      return;
+    }
+    item.innerHTML = this.heart.current;
   }
 
   playBuildingTower() {

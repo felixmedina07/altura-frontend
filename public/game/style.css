@@ -75,15 +75,43 @@ body, html{
     font-family: 'built bold';
 }
 
-#message{
-    position: absolute;
-    display: none;
-    width: 350px;
-    height: 80px;
+#totalKills{
+    left: 24%;
+}
+
+#maxLevel{
+    left: 42%;
+}
+
+#defeatedBosses{
+    left: 60%;
+}
+
+#demageTaken{
+    left: 78%;
+}
+
+.statsItem{
+    width: 80%;
     align-items: center;
     justify-content: center;
     position: absolute;
-    top: 50%;
+    top: -50%;
+    transform: translate(-50%, -50%);
+    border-radius: 10px;
+    font-size: 25px;
+    text-align: center;
+    color: white;
+    font-family: 'built bold';
+    transition: top 1s ease-out;
+}
+
+#stats{
+    width: 80%;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: -50%;
     left: 50%;
     transform: translate(-50%, -50%);
     border-radius: 10px;
@@ -91,8 +119,43 @@ body, html{
     text-align: center;
     color: white;
     font-family: 'built bold';
-    background-color: rgba(36, 225, 205, 1);
+    transition: top 1s ease-out;
+}
+
+#message{
+    width: 350px;
+    height: 80px;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: 50%;
+    left: -50%;
+    transform: translate(-50%, -50%);
+    border-radius: 10px;
+    font-size: 72px;
+    text-align: center;
+    color: white;
+    font-family: 'built bold';
     cursor: pointer;
+    transition: left 1s ease-out, width 0.5s ease-out, height 0.5s ease-out;
+}
+
+#messageBackground{
+    width: 350px;
+    height: 80px;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: 50%;
+    left: 1500%;
+    transform: translate(-50%, -50%);
+    border-radius: 10px;
+    font-size: 72px;
+    text-align: center;
+    color: white;
+    font-family: 'built bold';
+    cursor: pointer;
+    transition: left 1s ease-out;
 }
 
 #message:hover{

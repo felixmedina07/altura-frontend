@@ -5,6 +5,9 @@ const scoreText = document.getElementById("score");
 const waveText = document.getElementById("wave");
 const levelText = document.getElementById("level");
 const message = document.getElementById("message");
+const messageBackground = document.getElementById("messageBackground");
+const stats = document.getElementById("stats");
+const statsItems = document.getElementsByClassName("statsItem");
 const loading = document.getElementById("loading");
 const container = document.getElementById("container");
 const currentWave = document.getElementById("currentWave");
@@ -93,7 +96,7 @@ Images.loadImages()
       coin: 50.0,
       score: 0,
       heart: {
-        max: 100,
+        max: 1,
       },
       level: 0,
       wave: 0,
@@ -394,8 +397,14 @@ Images.loadImages()
             (userResources.coin < 5 && buildings.length <= 0)
           ) {
             userResources.sendScore().then(() => {
-              message.innerHTML = "TRY AGAIN!";
-              message.style.display = "flex";
+              message.style.left = "50%";
+              messageBackground.style.left = "50%";
+              stats.style.top = "30%";
+              for (let i = 0; i < statsItems.length; i++) {
+                const item = statsItems[i];
+                item.style.top = "33%";
+                userResources.setStatsData(item);
+              }
             });
             cancelAnimationFrame(animationId);
           }
