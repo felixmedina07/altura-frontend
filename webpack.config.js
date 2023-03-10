@@ -16,7 +16,8 @@ const getEnvVariables = (fileEnv) => {
   }
 
   return {
-    "process.env.NODE_API_URL": process.env.NODE_API_URL || '""',
+    "process.env.NODE_API_URL":
+      JSON.stringify(process.env.NODE_API_URL) || '""',
   };
 };
 
