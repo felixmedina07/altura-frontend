@@ -16,7 +16,7 @@ const getEnvVariables = (fileEnv) => {
   }
 
   return {
-    "process.env.NODE_API_URL": process.env.NODE_API_URL || "",
+    "process.env.NODE_API_URL": process.env.NODE_API_URL || '""',
   };
 };
 
@@ -38,6 +38,8 @@ module.exports = ({ mode } = { mode: "production" }) => {
   // reduce it to a nice object, the same as before (but with the variables from the file)
 
   const envKeys = getEnvVariables(fileEnv);
+
+  console.log(envKeys);
 
   return merge(
     {
