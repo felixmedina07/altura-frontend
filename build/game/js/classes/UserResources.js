@@ -10,6 +10,7 @@ class UserResources {
       current: 0,
       max: heart.max,
     };
+    this.killBosses = 0;
     this.level = level;
     this.wave = wave;
     this.coin = coin;
@@ -38,6 +39,26 @@ class UserResources {
     this.buildingTower = new Audio();
     this.buildingTower.src = "/game/sounds/buildingTower.mp3";
     this.buildingTower.volume = 0.13;
+  }
+
+  async sendScore() {
+    if (!urlParams.has("token")) return;
+    const token = urlParams.get("token");
+    const result = await fetch(`${SERVER_URL}/score/`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({
+        totalKills: this.score,
+        maxLevel: this.level + 1,
+        defeatedBosses: this.killBosses,
+        damageTaken: this.heart.current,
+      }),
+    });
+    const decks = await result.json();
+    console.log(decks);
   }
 
   playBuildingTower() {

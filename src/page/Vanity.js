@@ -107,28 +107,6 @@ const VanityImageBarNeon = styled(Box)`
   bottom: 5px;
 `;
 const Vanity = ({}) => {
-  const textBoard = [
-    { username: "player 1", lvl: "598", score: "10844", rank: "1" },
-    { username: "player 2", lvl: "564", score: "10655", rank: "2" },
-    { username: "player 3", lvl: "563", score: "10100", rank: "3" },
-    { username: "player 4", lvl: "555", score: "9874", rank: "4" },
-    { username: "player 5", lvl: "542", score: "9545", rank: "5" },
-    { username: "player 6", lvl: "512", score: "9432", rank: "6" },
-    { username: "player 7", lvl: "502", score: "9412", rank: "7" },
-    { username: "player 8", lvl: "489", score: "9321", rank: "8" },
-    { username: "player 9", lvl: "482", score: "9142", rank: "9" },
-    { username: "player 10", lvl: "105", score: "4545", rank: "50" },
-    { username: "player 11", lvl: "104", score: "4230", rank: "51" },
-    { username: "player 12", lvl: "103", score: "4210", rank: "52" },
-    { username: "player 13", lvl: "101", score: "4000", rank: "53" },
-    { username: "player 14", lvl: "88", score: "4000", rank: "54" },
-    { username: "player 15", lvl: "85", score: "4000", rank: "55" },
-    { username: "player 16", lvl: "84", score: "4000", rank: "56" },
-    { username: "player 17", lvl: "83", score: "4000", rank: "57" },
-    { username: "player 18", lvl: "82", score: "4000", rank: "58" },
-    { username: "player 19", lvl: "78", score: "4000", rank: "59" },
-    { username: "player 20", lvl: "76", score: "4000", rank: "60" },
-  ];
   const swiperRef = useRef();
   const swiperTwoRef = useRef();
   return (
@@ -441,6 +419,7 @@ const Vanity = ({}) => {
             justifyContent: "center",
             alignItems: "center",
             marginTop: "2rem",
+            paddingBottom: "2rem",
           }}
         >
           <IconButton color="transparent">
