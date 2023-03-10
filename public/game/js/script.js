@@ -96,7 +96,7 @@ Images.loadImages()
       coin: 50.0,
       score: 0,
       heart: {
-        max: 1,
+        max: 100,
       },
       level: 0,
       wave: 0,
