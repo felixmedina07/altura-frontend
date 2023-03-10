@@ -7,6 +7,19 @@ const modeConfiguration = (env) => require(`./build-utils/webpack.${env}`)(env);
 const dotenv = require("dotenv");
 const fs = require("fs");
 
+const getEnvVariables = (fileEnv) => {
+  if (fileEnv) {
+    return Object.keys(fileEnv).reduce((prev, next) => {
+      prev[`process.env.${next}`] = JSON.stringify(fileEnv[next]);
+      return prev;
+    }, {});
+  }
+
+  return {
+    "process.env.NODE_API_URL": process.env.NODE_API_URL || "",
+  };
+};
+
 module.exports = ({ mode } = { mode: "production" }) => {
   // Get the root path (assuming your webpack config is in the root of your project!)
   const currentPath = path.join(__dirname);
@@ -21,16 +34,10 @@ module.exports = ({ mode } = { mode: "production" }) => {
   const finalPath = fs.existsSync(envPath) ? envPath : basePath;
 
   // Set the path parameter in the dotenv config
-  const fileEnv =
-    dotenv.config({ path: finalPath || "/tmp/build_4f4bafe1/.env" }).parsed ||
-    dotenv.config();
+  const fileEnv = dotenv.config({ path: finalPath }).parsed;
   // reduce it to a nice object, the same as before (but with the variables from the file)
-  const envKeys = Object.keys(fileEnv).reduce((prev, next) => {
-    prev[`process.env.${next}`] = JSON.stringify(fileEnv[next]);
-    return prev;
-  }, {});
 
-  console.log(envKeys);
+  const envKeys = getEnvVariables(fileEnv);
 
   return merge(
     {
