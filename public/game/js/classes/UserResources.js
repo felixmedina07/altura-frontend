@@ -15,6 +15,7 @@ class UserResources {
     this.wave = wave;
     this.coin = coin;
     this.score = score;
+    this.damageTaken = this.heart.max;
     this.placementTilesData = [];
     this.path = [];
     this.speedGame = 1;
@@ -54,7 +55,7 @@ class UserResources {
         totalKills: this.score,
         maxLevel: this.level + 1,
         defeatedBosses: this.killBosses,
-        damageTaken: this.heart.current,
+        damageTaken: this.damageTaken,
       }),
     });
     return await result.json();
@@ -73,7 +74,7 @@ class UserResources {
       item.innerHTML = this.killBosses;
       return;
     }
-    item.innerHTML = this.heart.current;
+    item.innerHTML = this.damageTaken;
   }
 
   playBuildingTower() {

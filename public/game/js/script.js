@@ -343,6 +343,9 @@ Images.loadImages()
           currentAudio.volume = userResources.effectVolumen;
           userResources.setScore(1);
           userResources.setCoin(enemy.enemyCard.coin);
+          if (enemy.enemyCard.isBoss) {
+            userResources.killBosses += 1;
+          }
           const cards = enemy.enemyCard.spawn.map((spawn) => {
             return enemyCardsData.filter((card) => card.img === spawn)[0];
           });

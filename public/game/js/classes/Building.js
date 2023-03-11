@@ -189,6 +189,7 @@ class Building extends Sprite {
       return;
     }
     this.health.current -= demage.attack;
+    userResources.damageTaken += demage.attack;
     this.drawLiveBar.frame.current = Math.round(
       (this.health.current * (this.drawLiveBar.frame.maxX - 1)) /
         this.health.max
